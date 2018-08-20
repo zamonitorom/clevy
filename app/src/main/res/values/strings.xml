@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">LearnRabbit</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_main2">EducationActivity</string>
+    <string name="title_activity_test">TestActivity</string>
+    <string name="title_activity_final">FinalActivity</string>
+
+    <string name="choice_apple">Apple</string>
+    <string name="choice_orange">Orange</string>
+    <string name="choice_cat">Cat</string>
+    <string name="choice_dog">Dog</string>
+
+
+    <string name="preference_name">key_store</string>
+
+    <string name="sharing_description">Сделайте пост на своей странице в vk,facebook или одноклассники.
+        Пост должен содержать текст и ссылку:
+    </string>
+
+    <string name="sharing_text_title">Текст:</string>
+    <string name="sharing_text_body">&quot;Мой ребенок использует LearnRabbit!&quot;</string>
+
+    <string name="sharing_link_title">Ссылка:</string>
+    <string name="sharing_link_body">https://play.google.com/store/apps/details?id=com.bms.learnrabbit</string>
+
+</resources>
