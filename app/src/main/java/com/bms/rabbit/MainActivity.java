@@ -12,8 +12,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.speech.tts.TextToSpeech;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,6 +25,11 @@ import com.android.vending.billing.IInAppBillingService;
 
 import com.bms.rabbit.R;
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import io.fabric.sdk.android.Fabric;
 import org.json.JSONObject;
 
@@ -32,7 +39,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.bms.rabbit.AppConstants.PROMO_1_ID;
 import static com.bms.rabbit.AppConstants.PROMO_2_ID;
@@ -118,6 +127,31 @@ public class MainActivity extends AppCompatActivity {
         };
 
         btnStart.setOnClickListener(startAction);
+
+
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        Map<String, Object> user = new HashMap<>();
+        user.put("first", "Ada");
+        user.put("last", "Lovelace");
+        user.put("born", 1815);
+
+// Add a new document with a generated ID
+        db.collection("users")
+                .add(user)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("222", "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("222", "Error adding document", e);
+                    }
+                });
 
     }
 
@@ -255,4 +289,11 @@ public class MainActivity extends AppCompatActivity {
 //        sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("/storage/emulated/0/Android/data/ru.dixy.keyboardtest/files/Pictures"));
 
         startActivity(Intent.createChooser(sendIntent,"Поделиться"));
+ */
+
+/*
+        if (getSupportFragmentManager().findFragmentByTag("shopdetail") == null) {
+            GetMailDialogFragment getMailDialogFragment = new GetMailDialogFragment();
+            getMailDialogFragment.show(getSupportFragmentManager(), "shopdetail");
+        }
  */
