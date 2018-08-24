@@ -27,9 +27,9 @@ public class AppConstants {
     final static String typeSubs = "subs";
     final static String typeInApp = "inapp";
 
-    final static String UNLIMITED_SUBSCRIBE_ID = "clevy_unlimit";
-    final static String MONTHLY_SUBSCRIBE_ID = "com.clevy.ikravtsov.mounthly_subscription";
-    final static String YEAR_SUBSCRIBE_ID = "com.clevy.ikravtsov.yearly_subscription";
+    final static String UNLIMITED_SUBSCRIBE_ID = "com.bms.rabbit.unique.forever";
+    final static String MONTHLY_SUBSCRIBE_ID = "com.bms.rabbit.subscribe.monthly";
+    final static String YEAR_SUBSCRIBE_ID = "com.bms.rabbit.subscribe.yearly";
 
     final static String PROMO_1_ID = "com.clevy.ikravtsov.promo_1";
     final static String PROMO_2_ID = "com.clevy.ikravtsov.promo_2";

@@ -94,14 +94,14 @@
 
             <Button
                 android:id="@+id/b_get_free"
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="#000"
-                android:textStyle="bold"
-                android:textSize="12sp"
+                android:layout_margin="10dp"
                 android:background="@drawable/circle_button"
-                android:text="Как получить бесплатно ?" />
+                android:text="Получить бесплатно!"
+                android:textColor="#000"
+                android:textSize="12sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
     </LinearLayout>
