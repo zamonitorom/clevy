@@ -247,3 +247,12 @@ public class MainActivity extends AppCompatActivity {
         return hasPurchases(typeSubs, possibleProductIds) || hasPurchases(typeInApp, possibleProductIds);
     }
 }
+/*
+ Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.setType("text/plain");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, " https://avatars.mds.yandex.net/get-pdb/404799/44c36ae1-255d-46c5-ab59-cab006d3cb54/s1200 This is my text to send.");
+//        sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("/storage/emulated/0/Android/data/ru.dixy.keyboardtest/files/Pictures"));
+
+        startActivity(Intent.createChooser(sendIntent,"Поделиться"));
+ */
