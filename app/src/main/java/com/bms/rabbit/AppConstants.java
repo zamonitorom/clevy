@@ -27,6 +27,8 @@ public class AppConstants {
     final static String typeSubs = "subs";
     final static String typeInApp = "inapp";
 
+    final static String haveMail = "haveMail";
+
     final static String UNLIMITED_SUBSCRIBE_ID = "com.bms.rabbit.unique.forever";
     final static String MONTHLY_SUBSCRIBE_ID = "com.bms.rabbit.subscribe.monthly";
     final static String YEAR_SUBSCRIBE_ID = "com.bms.rabbit.subscribe.yearly";

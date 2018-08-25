@@ -48,6 +48,7 @@ import static com.bms.rabbit.AppConstants.PROMO_2_ID;
 import static com.bms.rabbit.AppConstants.PROMO_3_ID;
 import static com.bms.rabbit.AppConstants.TRIAL_DAYS_COUNT;
 import static com.bms.rabbit.AppConstants.MONTHLY_SUBSCRIBE_ID;
+import static com.bms.rabbit.AppConstants.haveMail;
 import static com.bms.rabbit.AppConstants.typeInApp;
 import static com.bms.rabbit.AppConstants.typeSubs;
 import static com.bms.rabbit.AppConstants.UNLIMITED_SUBSCRIBE_ID;
@@ -120,38 +121,23 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener startAction = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                doBillingMagic();
+                Log.i("CHECK", "Click start");
+                Button b = (Button) v;
+                b.setEnabled(false);
+                if(sharedPref.contains(haveMail)){
+                    doBillingMagic();
+                }else {
+                    if (getSupportFragmentManager().findFragmentByTag("shopdetail") == null) {
+                        GetMailDialogFragment getMailDialogFragment = new GetMailDialogFragment();
+                        getMailDialogFragment.show(getSupportFragmentManager(), "shopdetail");
+                    }
+                }
+                b.setEnabled(true);
             }
         };
 
         btnStart.setOnClickListener(startAction);
 
-
-
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        Map<String, Object> user = new HashMap<>();
-        user.put("first", "Ada");
-        user.put("last", "Lovelace");
-        user.put("born", 1815);
-
-// Add a new document with a generated ID
-        db.collection("users")
-                .add(user)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("222", "DocumentSnapshot added with ID: " + documentReference.getId());
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("222", "Error adding document", e);
-                    }
-                });
 
     }
 
@@ -166,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 PROMO_3_ID));
 
         try {
-
+            Log.i("CHECK", "Check trial");
             if (isTrialActive() || isAlreadyBought(possibleProductIds)){
                 Intent intentEducate = new Intent(this, EducationActivity.class);
 

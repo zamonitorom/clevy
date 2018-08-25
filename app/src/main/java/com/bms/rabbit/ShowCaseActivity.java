@@ -116,32 +116,12 @@ public class ShowCaseActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.setType("text/plain");
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "Английский для детей!\nhttps://drive.google.com/open?id=1ajRbuWAFAYsI6AAPlFEpfUcBpwTSlann");
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                // Get the layout inflater
-
-                // Inflate and set the layout for the dialog
-                // Pass null as the parent view because its going in the dialog layout
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    builder.setView(R.layout.get_free_popup)
-                            // Add action buttons
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int id) {
-                                    dialog.dismiss();
-                                }
-                            });
-
-                    AlertDialog alert = builder.create();
-                    alert.show();
-                }
-                else {
-                    dialog.setContentView(R.layout.get_free_popup);
-                    dialog.show();
-                }
-
-
+                startActivity(Intent.createChooser(sendIntent,"Поделиться"));
             }
         };
 
