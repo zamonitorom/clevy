@@ -1,5 +1,6 @@
 package com.bms.rabbit;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.ComponentName;
 import android.content.Context;
@@ -22,15 +23,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.vending.billing.IInAppBillingService;
-
-import com.bms.rabbit.R;
 import com.crashlytics.android.Crashlytics;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
-import io.fabric.sdk.android.Fabric;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
@@ -39,20 +37,20 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import io.fabric.sdk.android.Fabric;
+
+import static com.bms.rabbit.AppConstants.MONTHLY_SUBSCRIBE_ID;
 import static com.bms.rabbit.AppConstants.PROMO_1_ID;
 import static com.bms.rabbit.AppConstants.PROMO_2_ID;
 import static com.bms.rabbit.AppConstants.PROMO_3_ID;
 import static com.bms.rabbit.AppConstants.TRIAL_DAYS_COUNT;
-import static com.bms.rabbit.AppConstants.MONTHLY_SUBSCRIBE_ID;
+import static com.bms.rabbit.AppConstants.UNLIMITED_SUBSCRIBE_ID;
+import static com.bms.rabbit.AppConstants.YEAR_SUBSCRIBE_ID;
 import static com.bms.rabbit.AppConstants.haveMail;
 import static com.bms.rabbit.AppConstants.typeInApp;
 import static com.bms.rabbit.AppConstants.typeSubs;
-import static com.bms.rabbit.AppConstants.UNLIMITED_SUBSCRIBE_ID;
-import static com.bms.rabbit.AppConstants.YEAR_SUBSCRIBE_ID;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -80,7 +78,18 @@ public class MainActivity extends AppCompatActivity {
         sharedPref = this.getSharedPreferences(
                 getString(R.string.preference_name), Context.MODE_PRIVATE);
 
-
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signInAnonymously()
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d("2228", "signInAnonymously:success");
+                        } else {
+                            Log.d("2228", "signInAnonymously:unSuccess");
+                        }
+                    }
+                });
 //        SharedPreferences.Editor editor = sharedPref.edit();
 //        editor.putInt(keyCurrentBlockIndex, 0);
 //        editor.putInt(keyCurrentWordIndex, 0);

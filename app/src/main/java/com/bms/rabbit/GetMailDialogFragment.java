@@ -19,18 +19,16 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
+import java.util.Random;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
@@ -62,81 +60,34 @@ public class GetMailDialogFragment extends BottomSheetDialogFragment {
                 public void onClick(View view) {
                     String mail = editText.getText().toString();
 
-                    if(isValidEmailAddress(mail)) {
-
+                    if (isValidEmailAddress(mail)) {
                         progressBar.setVisibility(View.VISIBLE);
                         button.setVisibility(View.GONE);
 
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-
-                        Map<String, Object> user = new HashMap<>();
-                        user.put("mail", mail);
-
                         Log.d("2228", "start loading");
 
-// Add a new document with a generated ID
-                        db.collection("users")
-                                .add(user);
+                        final ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
 
-//                        ScheduledExecutorService worker =
-//                                Executors.newSingleThreadScheduledExecutor();
-//                        worker.schedule(new Runnable() {
-//                            @Override
-//                            public void run() {
-                                button.setVisibility(View.VISIBLE);
+                        exec.schedule(new Runnable() {
+                            public void run() {
+                                finishDialog();
+                            }
+                        }, 4, TimeUnit.SECONDS);
 
-                                if(sharedPref!=null){
-                                    SharedPreferences.Editor editor = sharedPref.edit();
-                                    editor.putBoolean(haveMail, true);
-                                    editor.apply();
-                                }
-
-                                ((MainActivity)getActivity()).doBillingMagic();
-
-                                if (dialog != null) {
-                                    dialog.dismiss();
-                                }
-                                Log.d("2228", "DocumentSnapshot added with ID: ");
-//                            }
-//                        },2, TimeUnit.SECONDS);
-//                                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                    @Override
-//                                    public void onSuccess(DocumentReference documentReference) {
-//                                        progressBar.setVisibility(View.GONE);
-//                                        button.setVisibility(View.VISIBLE);
-//
-//                                        if(sharedPref!=null){
-//                                            SharedPreferences.Editor editor = sharedPref.edit();
-//                                            editor.putBoolean(haveMail, true);
-//                                            editor.apply();
-//                                        }
-//
-//                                        ((MainActivity)getActivity()).doBillingMagic();
-//
-//                                        if (dialog != null) {
-//                                            dialog.dismiss();
-//                                        }
-//                                        Log.d("2228", "DocumentSnapshot added with ID: " + documentReference.getId());
-//                                    }
-//                                })
-//                                .addOnFailureListener(new OnFailureListener() {
-//                                    @Override
-//                                    public void onFailure(@NonNull Exception e) {
-//                                        button.setVisibility(View.VISIBLE);
-//                                        progressBar.setVisibility(View.GONE);
-//                                        Crashlytics.logException(e);
-//                                        if (dialog != null) {
-//                                            dialog.dismiss();
-//                                        }
-//                                        Log.d("2228", "Error adding document", e);
-//                                    }
-//                                });
+                        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference("learn-rabbit-ac350");
+                        myRef.child("users").child(String.valueOf(new Random().nextLong())).setValue(mail).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                exec.shutdown();
+                                finishDialog();
+                            }
+                        });
 
 
-
-                    }else {
-                        Toast.makeText(getContext(), "Неправильный адрес",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getContext(), "Неправильный адрес", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -144,13 +95,27 @@ public class GetMailDialogFragment extends BottomSheetDialogFragment {
         return view;
     }
 
+    private void finishDialog() {
+        if (sharedPref != null) {
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putBoolean(haveMail, true);
+            editor.apply();
+        }
+
+        ((MainActivity) getActivity()).doBillingMagic();
+
+        if (dialog != null) {
+            dialog.dismiss();
+        }
+        Log.d("2228", "DocumentSnapshot added with ID: ");
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if(getActivity()!=null) {
-            sharedPref = getActivity().getSharedPreferences(
-                    getString(R.string.preference_name), Context.MODE_PRIVATE);
+        if (getActivity() != null) {
+            sharedPref = getActivity().getSharedPreferences(getString(R.string.preference_name), Context.MODE_PRIVATE);
         }
 
     }
