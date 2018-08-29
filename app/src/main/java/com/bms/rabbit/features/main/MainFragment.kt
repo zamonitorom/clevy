@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.bms.rabbit.R
+import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.databinding.FragmentMainBinding
 import com.bms.rabbit.features.auth.AuthViewModel
 
@@ -23,7 +24,8 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.viewModel = MainViewModel()
+        val router =(activity!!.applicationContext as RabbitApp).baseComponent.router
+        binding.viewModel = MainViewModel(router)
         super.onViewCreated(view, savedInstanceState)
     }
 

@@ -27,11 +27,7 @@ public class CommonBinding {
 
     @BindingAdapter("selected")
     public static void setSelected(View view, boolean value) {
-//        if (value) {
-            view.setSelected(value);
-//        } else {
-//            view.setVisibility(View.GONE);
-//        }
+        view.setSelected(value);
     }
 
 

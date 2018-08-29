@@ -3,5 +3,5 @@ package com.bms.rabbit.adapters;
 
 
 public class ItemId {
-//    public final static int Item = com.bmsoftware.sense2beat.BR.item;
+    public final static int value = com.bms.rabbit.BR.item;
 }

@@ -8,9 +8,10 @@ import android.support.v4.app.FragmentActivity
 interface Router {
     fun openAuth()
     fun openMain()
-    fun openLesson()
+    fun openLesson(id:Int)
     fun openTask()
     fun openProfile()
+    fun openFinish()
     fun setActivity(activity: FragmentActivity)
     fun releaseActivity()
 }

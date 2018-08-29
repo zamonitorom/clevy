@@ -5,6 +5,10 @@
 
     <data>
 
+        <import type="com.bms.rabbit.adapters.ItemId" />
+
+        <import type="com.bms.rabbit.adapters.LayoutManagers" />
+
         <variable
             name="viewModel"
             type="com.bms.rabbit.features.lesson.LessonViewModel" />
@@ -15,6 +19,44 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/primeText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@{viewModel.title}" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/secondaryAccentText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Список заданий:"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:itemLayout="@{@layout/item_task}"
+            app:items="@{viewModel.items}"
+            app:layoutManager="@{LayoutManagers.linear()}"
+            app:variable="@{ItemId.value}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

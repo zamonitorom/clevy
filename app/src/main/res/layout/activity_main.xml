@@ -4,22 +4,10 @@
 
     <data>
 
-        <!--<import type="com.ru.dixy.tools.Variables" />-->
-
-        <!--<import type="com.ru.dixy.tools.LayoutManagers" />-->
-
-        <!--<import type="com.ru.dixy.R" />-->
-
-        <!--<import type="com.ru.dixy.tools.ItemDecorationManager" />-->
-
-
-        <!--<variable-->
-            <!--name="viewModel"-->
-            <!--type="com.ru.dixy.features.feedback.FeedBackViewModel" />-->
     </data>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/container"
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

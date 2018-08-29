@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bms.rabbit.R
+import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.databinding.FragmentMainBinding
 import com.bms.rabbit.databinding.FragmentTaskBinding
 import com.bms.rabbit.features.auth.AuthViewModel
@@ -22,7 +23,8 @@ class TaskFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.viewModel = TaskViewModel()
+        val router =(activity!!.applicationContext as RabbitApp).baseComponent.router
+        binding.viewModel = TaskViewModel(router)
         super.onViewCreated(view, savedInstanceState)
     }
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bms.rabbit.R
+import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.databinding.FragmentFinishBinding
 
 class FinishFragment : Fragment() {
@@ -19,7 +20,7 @@ class FinishFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.viewModel = LessonViewModel()
+        binding.viewModel = (activity!!.applicationContext as RabbitApp).baseComponent.lessonViewModel
         super.onViewCreated(view, savedInstanceState)
     }
 

@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bms.rabbit.R
+import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.databinding.FragmentLessonBinding
+import com.bmsoftware.sense2beat.RouterImpl
 
 class LessonFragment : Fragment() {
 
@@ -21,7 +23,12 @@ class LessonFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.viewModel = LessonViewModel()
+        if(arguments!!.containsKey(RouterImpl.lessonId)) {
+            val key = arguments!!.getInt(RouterImpl.lessonId)
+            val lessonViewModel: LessonViewModel = (activity!!.applicationContext as RabbitApp).baseComponent.getLessonViewModel(key)
+
+            binding.viewModel = lessonViewModel
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
