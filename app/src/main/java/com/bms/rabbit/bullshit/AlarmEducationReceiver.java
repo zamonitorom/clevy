@@ -1,4 +1,4 @@
-package com.bms.rabbit;
+package com.bms.rabbit.bullshit;
 
 /**
  * Created by ikravtsov on 08/02/2018.
@@ -18,9 +18,9 @@ public class AlarmEducationReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         // For our recurring task, we'll just display a message
 
-        Intent intentNew = new Intent(context, EducationActivity.class);
-        intentNew.setFlags(FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(intentNew);
+//        Intent intentNew = new Intent(context, EducationActivity.class);
+//        intentNew.setFlags(FLAG_ACTIVITY_NEW_TASK);
+//        context.startActivity(intentNew);
 
     }
 }

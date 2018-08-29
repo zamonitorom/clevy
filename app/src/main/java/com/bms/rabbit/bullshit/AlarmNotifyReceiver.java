@@ -1,4 +1,4 @@
-package com.bms.rabbit;
+package com.bms.rabbit.bullshit;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;

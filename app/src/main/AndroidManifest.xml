@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".RabbitApp"
         android:allowBackup="true"
         android:icon="@drawable/clevy_icon_2"
         android:label="@string/app_name"
@@ -20,7 +21,8 @@
         tools:ignore="HardcodedDebugMode">
 
         <activity
-            android:name="com.bms.rabbit.MainActivity"
+            android:name="com.bms.rabbit.bullshit.MainActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,37 +31,37 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name="com.bms.rabbit.AlarmEducationReceiver">
+        <receiver android:name="com.bms.rabbit.bullshit.AlarmEducationReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-        <receiver android:name="com.bms.rabbit.AlarmNotifyReceiver">
+        <receiver android:name="com.bms.rabbit.bullshit.AlarmNotifyReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name="com.bms.rabbit.EducationActivity"
-            android:label="@string/title_activity_main2"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.bms.rabbit.TestActivity"
-            android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name="com.bms.rabbit.FinalActivity"
-            android:label="@string/title_activity_final"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.bms.rabbit.ShowCaseActivity"/>
+        <!--<activity-->
+            <!--android:name="com.bms.rabbit.bullshit.EducationActivity"-->
+            <!--android:label="@string/title_activity_main2"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <!--<activity-->
+            <!--android:name="com.bms.rabbit.bullshit.TestActivity"-->
+            <!--android:label="@string/title_activity_test"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <!--<activity-->
+            <!--android:name="com.bms.rabbit.bullshit.FinalActivity"-->
+            <!--android:label="@string/title_activity_final"-->
+            <!--android:theme="@style/AppTheme.NoActionBar" />-->
+        <!--<activity android:name="com.bms.rabbit.bullshit.ShowCaseActivity"/>-->
 
-        <service android:name="com.bms.rabbit.FireBaseService"
-            android:permission="">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
-        </service>
+        <!--<service android:name="com.bms.rabbit.bullshit.FireBaseService"-->
+            <!--android:permission="">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="com.google.firebase.MESSAGING_EVENT"/>-->
+            <!--</intent-filter>-->
+        <!--</service>-->
 
         <meta-data
             android:name="io.fabric.ApiKey"
