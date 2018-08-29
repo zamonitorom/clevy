@@ -250,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Date currentDate = new Date();
 
-                long diffInDays = (date.getTime() - currentDate.getTime()) / (24 * 60 * 60 * 1000);
+                long diffInDays = (currentDate.getTime() - date.getTime()) / (24 * 60 * 60 * 1000);
 
                 if (diffInDays < TRIAL_DAYS_COUNT) {
                     isActive = true;
