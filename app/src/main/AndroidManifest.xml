@@ -21,7 +21,7 @@
         tools:ignore="HardcodedDebugMode">
 
         <activity
-            android:name="com.bms.rabbit.bullshit.MainActivity"
+            android:name="com.bms.rabbit.features.main.MainActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name">
             <intent-filter>
