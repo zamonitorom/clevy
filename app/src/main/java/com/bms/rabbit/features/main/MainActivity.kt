@@ -13,7 +13,8 @@ import com.bmsoftware.sense2beat.Router
 
 class MainActivity : AppCompatActivity() {
     private val activityMainBinding: ActivityMainBinding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
-    private val rootViewModel: RootViewModel by lazy { RootViewModel((applicationContext as RabbitApp).baseComponent.router) }
+    private val rootViewModel: RootViewModel by lazy {
+        RootViewModel((applicationContext as RabbitApp).baseComponent.router,(applicationContext as RabbitApp).baseComponent.authDbDataSource) }
     private lateinit var router: Router
 
     override fun onCreate(savedInstanceState: Bundle?) {

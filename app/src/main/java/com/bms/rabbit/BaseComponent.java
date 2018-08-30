@@ -11,6 +11,8 @@ import com.bms.rabbit.features.auth.AuthNetworkDataSource;
 import com.bms.rabbit.features.auth.AuthRepository;
 import com.bms.rabbit.features.auth.AuthRepositoryImpl;
 import com.bms.rabbit.features.lesson.LessonViewModel;
+import com.bms.rabbit.tools.Messenger;
+import com.bms.rabbit.tools.RxErrorHandlingCallAdapterFactory;
 import com.bmsoftware.sense2beat.Router;
 import com.bmsoftware.sense2beat.RouterImpl;
 import com.google.gson.Gson;
@@ -26,6 +28,7 @@ public class BaseComponent {
     private Router router = new RouterImpl();
     private AuthDbDataSource authDbDataSource;
     private Context context;
+    private Messenger messenger;
 
     private LessonViewModel lessonViewModel;
     private LessonRepository lessonRepository;
@@ -46,6 +49,13 @@ public class BaseComponent {
 
     public Context getContext() {
         return context;
+    }
+
+    public Messenger getMessenger() {
+        if (messenger == null) {
+            messenger = new Messenger(context);
+        }
+        return messenger;
     }
 
     public AuthDbDataSource getAuthDbDataSource() {
@@ -81,7 +91,7 @@ public class BaseComponent {
 
 
     public String getBaseUrl() {
-        return "https://russian-friends.com/";
+        return "http://80.87.201.72/";
     }
 
     public Retrofit getRetrofit() {
@@ -94,7 +104,8 @@ public class BaseComponent {
 
     private Retrofit getRetrofit(OkHttpClient client, String baseUrl) {
         return new Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(RxErrorHandlingCallAdapterFactory.create())
+//                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create(getGson()))
                 .baseUrl(baseUrl)
                 .client(client)
@@ -129,6 +140,5 @@ public class BaseComponent {
         }
         return interceptor;
     }
-
 
 }

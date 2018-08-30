@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.bms.rabbit.adapters.BindingRecyclerViewAdapter;
 import com.bms.rabbit.adapters.ItemDecorationManager;
 import com.bms.rabbit.adapters.LayoutManagers;
+import com.bms.rabbit.tools.recyclerAnim.ItemAnimatorManager;
 
 
 public class RecyclerViewBinding {
@@ -34,6 +35,11 @@ public class RecyclerViewBinding {
     @BindingAdapter("itemDecorationManager")
     public static void setDecoratorManager(RecyclerView recyclerView, ItemDecorationManager.ItemDecorationFactory itemDecorationFactory) {
         recyclerView.addItemDecoration(itemDecorationFactory.create(recyclerView));
+    }
+
+    @BindingAdapter("itemAnimator")
+    public static void setAminatorManager(RecyclerView recyclerView, ItemAnimatorManager.ItemAnimatorFactory itemAnimatorFactory) {
+        recyclerView.setItemAnimator(itemAnimatorFactory.create(recyclerView));
     }
 
 }

@@ -25,7 +25,8 @@ class AuthFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val router =(activity!!.applicationContext as RabbitApp).baseComponent.router
         val authRepository = (activity!!.applicationContext as RabbitApp).baseComponent.authRepository
-        binding.viewModel = AuthViewModel(router,authRepository)
+        val messenger = (activity!!.applicationContext as RabbitApp).baseComponent.messenger
+        binding.viewModel = AuthViewModel(router,authRepository,messenger)
         super.onViewCreated(view, savedInstanceState)
     }
 }

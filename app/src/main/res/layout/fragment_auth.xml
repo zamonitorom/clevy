@@ -34,29 +34,52 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <EditText
+                <android.support.design.widget.TextInputLayout
                     style="@style/loginEdit"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Имя" />
+                    android:layout_height="wrap_content">
 
-                <EditText
-                    android:id="@+id/editText5"
-                    style="@style/loginEdit"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="E-mail"
-                    android:inputType="textEmailAddress" />
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Имя"
+                        app:bindingText="@{viewModel.name}" />
+                </android.support.design.widget.TextInputLayout>
 
-                <EditText
-                    android:id="@+id/editText6"
+                <android.support.design.widget.TextInputLayout
                     style="@style/loginEdit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="код"
-                    android:inputType="number" />
+                    app:bindError="@{viewModel.errorMail}"
+                    app:errorMessage="@{viewModel.descError}">
+
+                    <EditText
+                        android:id="@+id/editText5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="E-mail"
+                        android:inputType="textEmailAddress"
+                        app:bindingText="@{viewModel.mail}"
+                        />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    style="@style/loginEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/editText6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Код"
+                        android:inputType="text"
+                        app:bindingText="@{viewModel.code}"
+                        />
+                </android.support.design.widget.TextInputLayout>
 
                 <Button
                     style="@style/loginEdit"
@@ -64,7 +87,17 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
                     android:background="@drawable/circle_button"
-                    android:text="Продолжить" />
+                    android:text="Продолжить"
+                    app:onClick="@{viewModel::sendData}"
+                    app:visibility="@{!viewModel.loaderViewModel.progress}"
+                    />
+
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:visibility="@{viewModel.loaderViewModel.progress}"
+                    />
 
             </LinearLayout>
 

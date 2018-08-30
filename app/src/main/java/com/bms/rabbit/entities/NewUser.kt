@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 // Created by Konstantin on 30.08.2018.
 
-data class NewUser(@SerializedName("id") val name:String, val mail:String, val code:Int) {
+data class NewUser(val name:String, val mail:String, val code:String) {
 }
 
-data class UserResponse(val token:String = ""){
+data class UserResponse(@SerializedName("token")val token:String = ""){
 
 }
