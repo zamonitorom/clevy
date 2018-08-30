@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import com.bms.rabbit.R
 import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.databinding.FragmentMainBinding
-import com.bms.rabbit.features.auth.AuthViewModel
 
 class MainFragment : Fragment() {
 

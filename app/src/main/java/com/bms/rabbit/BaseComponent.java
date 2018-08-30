@@ -4,8 +4,12 @@ package com.bms.rabbit;
 
 import android.content.Context;
 
+import com.bms.rabbit.features.LessonRepository;
 import com.bms.rabbit.features.auth.AuthDbDataSource;
 import com.bms.rabbit.features.auth.AuthInterceptor;
+import com.bms.rabbit.features.auth.AuthNetworkDataSource;
+import com.bms.rabbit.features.auth.AuthRepository;
+import com.bms.rabbit.features.auth.AuthRepositoryImpl;
 import com.bms.rabbit.features.lesson.LessonViewModel;
 import com.bmsoftware.sense2beat.Router;
 import com.bmsoftware.sense2beat.RouterImpl;
@@ -24,6 +28,7 @@ public class BaseComponent {
     private Context context;
 
     private LessonViewModel lessonViewModel;
+    private LessonRepository lessonRepository;
 
     private BaseComponent() {
     }
@@ -60,6 +65,18 @@ public class BaseComponent {
 
         lessonViewModel = new LessonViewModel(router, id);
         return lessonViewModel;
+    }
+
+    public AuthRepository getAuthRepository() {
+        AuthNetworkDataSource authNetworkDataSource = new AuthNetworkDataSource(getRetrofit());
+        return new AuthRepositoryImpl(authDbDataSource, authNetworkDataSource);
+    }
+
+    public LessonRepository getLessonRepository() {
+        if (lessonRepository == null) {
+            lessonRepository = new LessonRepository(getSighnedRetrofit());
+        }
+        return lessonRepository;
     }
 
 

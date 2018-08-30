@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.bms.rabbit.R
+import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.databinding.FragmentAuthBinding
 
 
@@ -22,7 +23,9 @@ class AuthFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.viewModel = AuthViewModel()
+        val router =(activity!!.applicationContext as RabbitApp).baseComponent.router
+        val authRepository = (activity!!.applicationContext as RabbitApp).baseComponent.authRepository
+        binding.viewModel = AuthViewModel(router,authRepository)
         super.onViewCreated(view, savedInstanceState)
     }
 }
