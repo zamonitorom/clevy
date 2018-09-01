@@ -1,6 +1,7 @@
-package com.bmsoftware.sense2beat
+package com.bms.rabbit
 
 import android.support.v4.app.FragmentActivity
+import com.bms.rabbit.entities.LessonItem
 
 // Created by Konstantin on 18.08.2018.
 

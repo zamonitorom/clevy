@@ -1,4 +1,4 @@
-package com.bmsoftware.sense2beat
+package com.bms.rabbit
 
 // Created by Konstantin on 18.08.2018.
 
@@ -6,13 +6,16 @@ package com.bmsoftware.sense2beat
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.support.v4.app.FragmentTransaction
 import com.bms.rabbit.R
+import com.bms.rabbit.entities.LessonItem
 import com.bms.rabbit.features.auth.AuthFragment
 import com.bms.rabbit.features.lesson.FinishFragment
 import com.bms.rabbit.features.lesson.LessonFragment
 import com.bms.rabbit.features.lesson.TaskFragment
 import com.bms.rabbit.features.main.MainActivity
 import com.bms.rabbit.features.main.MainFragment
+import com.google.gson.Gson
 
 class RouterImpl : Router {
     companion object {
@@ -32,7 +35,12 @@ class RouterImpl : Router {
     private fun changeFragment(fragment: Fragment,bundle: Bundle = Bundle()) {
         if (activity is MainActivity) {
             fragment.arguments = bundle
-            activity!!.supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit()
+            activity!!.supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_right,R.anim.slide_in_left, R.anim.slide_in_right)
+                    .replace(R.id.fragment_container, fragment)
+//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .addToBackStack(null)
+                    .commit()
         }
     }
 

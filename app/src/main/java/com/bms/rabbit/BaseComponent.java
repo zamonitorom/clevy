@@ -4,7 +4,8 @@ package com.bms.rabbit;
 
 import android.content.Context;
 
-import com.bms.rabbit.features.LessonRepository;
+import com.bms.rabbit.entities.LessonItem;
+import com.bms.rabbit.features.lesson.LessonRepository;
 import com.bms.rabbit.features.auth.AuthDbDataSource;
 import com.bms.rabbit.features.auth.AuthInterceptor;
 import com.bms.rabbit.features.auth.AuthNetworkDataSource;
@@ -13,15 +14,12 @@ import com.bms.rabbit.features.auth.AuthRepositoryImpl;
 import com.bms.rabbit.features.lesson.LessonViewModel;
 import com.bms.rabbit.tools.Messenger;
 import com.bms.rabbit.tools.RxErrorHandlingCallAdapterFactory;
-import com.bmsoftware.sense2beat.Router;
-import com.bmsoftware.sense2beat.RouterImpl;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BaseComponent {
@@ -29,6 +27,7 @@ public class BaseComponent {
     private AuthDbDataSource authDbDataSource;
     private Context context;
     private Messenger messenger;
+    private Gson gson;
 
     private LessonViewModel lessonViewModel;
     private LessonRepository lessonRepository;
@@ -66,14 +65,14 @@ public class BaseComponent {
         return lessonViewModel;
     }
 
-    public LessonViewModel getLessonViewModel(int id) {
+    public LessonViewModel getLessonViewModel(int lessonId) {
         if (lessonViewModel != null) {
-            if (lessonViewModel.getId() == id) {
+            if (lessonViewModel.getLessonId() == lessonId) {
                 return lessonViewModel;
             }
         }
 
-        lessonViewModel = new LessonViewModel(router, id);
+        lessonViewModel = new LessonViewModel(router, getLessonRepository(), lessonId);
         return lessonViewModel;
     }
 
@@ -113,9 +112,12 @@ public class BaseComponent {
     }
 
     private Gson getGson() {
-        return new GsonBuilder()
-                .setDateFormat("yyyy-MM-dd HH:mm:ss")
-                .create();
+        if (gson == null) {
+            gson = new GsonBuilder()
+//                    .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                    .create();
+        }
+        return gson;
     }
 
     private OkHttpClient getBaseClient() {

@@ -7,8 +7,8 @@ import android.util.Log
 
 import com.bms.rabbit.R
 import com.bms.rabbit.RabbitApp
+import com.bms.rabbit.Router
 import com.bms.rabbit.databinding.ActivityMainBinding
-import com.bmsoftware.sense2beat.Router
 
 
 class MainActivity : AppCompatActivity() {
@@ -21,12 +21,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         router = (applicationContext as RabbitApp).baseComponent.router
         activityMainBinding.fragmentContainer.alpha = 1f
+        router.setActivity(this)
+        rootViewModel.resolveScreen()
     }
 
     override fun onResume() {
         super.onResume()
         router.setActivity(this)
-        rootViewModel.resolveScreen()
     }
 
     override fun onPause() {

@@ -28,6 +28,8 @@ class TaskFragment : Fragment() {
         val router =(activity!!.applicationContext as RabbitApp).baseComponent.router
         binding.viewModel = TaskViewModel(router)
         super.onViewCreated(view, savedInstanceState)
+
+
         val listener = object:Animator.AnimatorListener {
             override fun onAnimationCancel(p0: Animator?) {
 
@@ -37,7 +39,7 @@ class TaskFragment : Fragment() {
                 YoYo.with(Techniques.Tada)
                         .duration(600)
                         .repeat(4)
-                        .playOn(view.findViewById(R.id.button2))
+                        .playOn(binding.button2)
             }
 
             override fun onAnimationRepeat(p0: Animator?) {
@@ -52,7 +54,7 @@ class TaskFragment : Fragment() {
         YoYo.with(Techniques.RollIn)
                 .duration(700)
                 .withListener(listener)
-                .playOn(view.findViewById(R.id.button2))
+                .playOn(binding.button2)
     }
 
 }

@@ -20,6 +20,13 @@ class LoaderViewModel(private val retryFunc: ()->Unit) : BaseObservable() {
             notifyPropertyChanged(BR.error)
         }
 
+    @get:Bindable
+    var showContent: Boolean = true
+        private set(error) {
+            field = error
+            notifyPropertyChanged(BR.showContent)
+        }
+
     fun retry() {
         retryFunc.invoke()
     }
@@ -27,10 +34,12 @@ class LoaderViewModel(private val retryFunc: ()->Unit) : BaseObservable() {
     fun startLoading() {
         error = false
         progress = true
+        showContent = false
     }
 
     fun finishLoading(isOk: Boolean) {
         error = !isOk
         progress = false
+        showContent = !progress &&!error
     }
 }

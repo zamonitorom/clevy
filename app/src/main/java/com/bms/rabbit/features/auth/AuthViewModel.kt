@@ -4,12 +4,12 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import android.util.Log
 import com.bms.rabbit.BR
+import com.bms.rabbit.Router
 import com.bms.rabbit.entities.NewUser
 import com.bms.rabbit.entities.UserResponse
 import com.bms.rabbit.features.LoaderViewModel
 import com.bms.rabbit.tools.Messenger
 import com.bms.rabbit.tools.StringContainer
-import com.bmsoftware.sense2beat.Router
 import com.crashlytics.android.Crashlytics
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

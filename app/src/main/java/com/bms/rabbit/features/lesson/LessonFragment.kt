@@ -9,8 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.bms.rabbit.R
 import com.bms.rabbit.RabbitApp
+import com.bms.rabbit.RouterImpl
 import com.bms.rabbit.databinding.FragmentLessonBinding
-import com.bmsoftware.sense2beat.RouterImpl
 
 class LessonFragment : Fragment() {
 
