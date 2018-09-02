@@ -5,7 +5,6 @@ import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import com.bms.rabbit.BR
 import com.bms.rabbit.Router
-import com.bms.rabbit.entities.LessonItem
 import com.bms.rabbit.features.LoaderViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -25,16 +24,11 @@ class LessonViewModel(private val router: Router, private val lessonRepository: 
 
     init {
         loadLesson()
-//        items.add(TaskItemViewModel(router))
-//        items.add(TaskItemViewModel(router))
-//        items.add(TaskItemViewModel(router))
-//        items.add(TaskItemViewModel(router))
-//        items.add(TaskItemViewModel(router))
     }
 
     private fun loadLesson() {
         loaderViewModel.startLoading()
-        lessonRepository.getTasks(lessonId)
+        lessonRepository.getLesson(lessonId)
                 .doOnSuccess {
                     title = it.topic
                     loaderViewModel.finishLoading(true)
@@ -45,6 +39,6 @@ class LessonViewModel(private val router: Router, private val lessonRepository: 
                 .map { return@map TaskItemViewModel(router, it) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ items.add(it) }, { loaderViewModel.finishLoading(false) })
+                .subscribe({ items.add(it) },{loaderViewModel.finishLoading(false)})
     }
 }

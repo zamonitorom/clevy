@@ -16,7 +16,7 @@ package com.bms.rabbit.bullshit;
 //        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
 //                PendingIntent.FLAG_ONE_SHOT);
 //
-//        Uri sound = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.income_message);
+//        Uri soundLink = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.income_message);
 //
 //        Bitmap largeIcon = BitmapFactory.decodeResource(getResources(), R.drawable.clevy_logo_2);
 //
@@ -25,7 +25,7 @@ package com.bms.rabbit.bullshit;
 //                .setContentText(messageBody)
 //                .setSmallIcon(R.drawable.clevy_logo_on_push)
 //                .setLargeIcon(largeIcon)
-//                .setSound(sound)
+//                .setSound(soundLink)
 //                .setContentIntent(pendingIntent).getNotification();
 //
 //        noti.flags = Notification.FLAG_AUTO_CANCEL;

@@ -19,8 +19,8 @@ import com.google.gson.Gson
 
 class RouterImpl : Router {
     companion object {
-        @JvmField
-        val lessonId = "lessonId"
+        const val lessonId = "lessonId"
+        const val taskId = "taskId"
     }
     private var activity: FragmentActivity? = null
 
@@ -68,7 +68,9 @@ class RouterImpl : Router {
         changeFragment(LessonFragment(),bundle)
     }
 
-    override fun openTask() {
-        changeFragment(TaskFragment())
+    override fun openTask(id:Int) {
+        val bundle = Bundle()
+        bundle.putInt(taskId, id)
+        changeFragment(TaskFragment(),bundle)
     }
 }

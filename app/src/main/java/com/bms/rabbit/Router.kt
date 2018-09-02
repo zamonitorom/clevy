@@ -10,7 +10,7 @@ interface Router {
     fun openAuth()
     fun openMain()
     fun openLesson(id:Int)
-    fun openTask()
+    fun openTask(id:Int)
     fun openProfile()
     fun openFinish()
     fun setActivity(activity: FragmentActivity)

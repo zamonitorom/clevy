@@ -111,7 +111,7 @@ public class BaseComponent {
                 .build();
     }
 
-    private Gson getGson() {
+    public Gson getGson() {
         if (gson == null) {
             gson = new GsonBuilder()
 //                    .setDateFormat("yyyy-MM-dd HH:mm:ss")

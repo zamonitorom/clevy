@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import com.bms.rabbit.R
 import com.bms.rabbit.RabbitApp
+import com.bms.rabbit.RouterImpl
 import com.bms.rabbit.databinding.FragmentTaskBinding
 import com.daimajia.androidanimations.library.Techniques
 import com.daimajia.androidanimations.library.YoYo
@@ -25,36 +26,40 @@ class TaskFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val router =(activity!!.applicationContext as RabbitApp).baseComponent.router
-        binding.viewModel = TaskViewModel(router)
+        if(arguments!!.containsKey(RouterImpl.taskId)) {
+            val key = arguments!!.getInt(RouterImpl.taskId)
+            val router = (activity!!.applicationContext as RabbitApp).baseComponent.router
+            val repo = (activity!!.applicationContext as RabbitApp).baseComponent.lessonRepository
+            binding.viewModel = TaskViewModel(router, repo,key)
+        }
         super.onViewCreated(view, savedInstanceState)
 
 
-        val listener = object:Animator.AnimatorListener {
-            override fun onAnimationCancel(p0: Animator?) {
-
-            }
-
-            override fun onAnimationEnd(p0: Animator?) {
-                YoYo.with(Techniques.Tada)
-                        .duration(600)
-                        .repeat(4)
-                        .playOn(binding.button2)
-            }
-
-            override fun onAnimationRepeat(p0: Animator?) {
-
-            }
-
-            override fun onAnimationStart(p0: Animator?) {
-
-            }
-        }
-
-        YoYo.with(Techniques.RollIn)
-                .duration(700)
-                .withListener(listener)
-                .playOn(binding.button2)
+//        val listener = object:Animator.AnimatorListener {
+//            override fun onAnimationCancel(p0: Animator?) {
+//
+//            }
+//
+//            override fun onAnimationEnd(p0: Animator?) {
+//                YoYo.with(Techniques.Tada)
+//                        .duration(600)
+//                        .repeat(4)
+//                        .playOn(binding.button2)
+//            }
+//
+//            override fun onAnimationRepeat(p0: Animator?) {
+//
+//            }
+//
+//            override fun onAnimationStart(p0: Animator?) {
+//
+//            }
+//        }
+//
+//        YoYo.with(Techniques.RollIn)
+//                .duration(700)
+//                .withListener(listener)
+//                .playOn(binding.button2)
     }
 
 }

@@ -35,7 +35,6 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="16dp"
-            app:visibility="@{viewModel.loaderViewModel.showContent}"
             app:itemLayout="@{@layout/item_lesson}"
             app:items="@{viewModel.items}"
             app:layoutManager="@{LayoutManagers.linear()}"

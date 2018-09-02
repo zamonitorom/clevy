@@ -32,4 +32,8 @@ class LessonFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onStart() {
+        super.onStart()
+    }
+
 }

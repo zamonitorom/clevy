@@ -3,6 +3,7 @@ package com.bms.rabbit.features.lesson;
 
 import com.bms.rabbit.entities.Lesson;
 import com.bms.rabbit.entities.LessonItem;
+import com.bms.rabbit.entities.Task;
 
 import java.util.List;
 
@@ -13,7 +14,11 @@ import retrofit2.http.Path;
 public interface LessonApi {
     @GET("get-lessons/")
     Single<List<LessonItem>> getLessons();
+
     @GET("get-lesson-detail/{id}/")
     Single<Lesson> getLessonWithTasks(@Path("id") int id);
+
+    @GET("get-task-detail/{id}/")
+    Single<Task> getTask(@Path("id") int id);
 
 }
