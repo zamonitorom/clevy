@@ -50,7 +50,10 @@ class RouterImpl : Router {
 
     override fun openFinish() {
         if (activity is MainActivity) {
-            activity!!.supportFragmentManager.beginTransaction().replace(R.id.fragment_container, FinishFragment()).commit()
+            activity!!.supportFragmentManager.beginTransaction()
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .replace(R.id.fragment_container, FinishFragment())
+                    .commit()
         }
     }
 

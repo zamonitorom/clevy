@@ -25,7 +25,7 @@ public class AnimationBinding {
 
     @BindingAdapter({"visibilityAnim"})
     public static void setVisibilityAnim(final View view, boolean visible) {
-        setVisibilityAnim(view, visible,1000);
+        setVisibilityAnim(view, visible,250);
     }
 
     @BindingAdapter({"visibility", "animatedView"})

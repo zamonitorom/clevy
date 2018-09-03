@@ -6,10 +6,12 @@ import android.databinding.ObservableArrayList
 import com.bms.rabbit.BR
 import com.bms.rabbit.entities.TaskContent
 import com.bms.rabbit.tools.Callback
+import java.util.concurrent.ScheduledThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 // Created by Konstantin on 31.08.2018.
 
-class TaskContentViewModel(private val taskContent: TaskContent, isTest:Boolean,private val callback: Callback<TaskContent>) : BaseObservable() {
+class TaskContentViewModel(private val taskContent: TaskContent, isTest: Boolean, private val callback: Callback<TaskContent>) : BaseObservable() {
     override fun hashCode(): Int {
         return taskContent.hashCode()
     }
@@ -24,29 +26,53 @@ class TaskContentViewModel(private val taskContent: TaskContent, isTest:Boolean,
     var test = isTest
         set(value) {
             field = value
+            if (value) {
+                setVariants()
+            }
             notifyPropertyChanged(BR.test)
         }
 
-    private val chooseCallback = Callback<TaskButtonViewModel> {
+    @get:Bindable
+    var correct = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.correct)
+        }
 
+    @get:Bindable
+    var inCorrect = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.inCorrect)
+        }
+
+    private val chooseCallback = Callback<TaskButtonViewModel> {
+        if (it.value == enWord) {
+            correct = true
+        } else inCorrect = true
+
+        buttons.forEach { it.enabled = false }
+        val exec = ScheduledThreadPoolExecutor(1)
+
+        exec.schedule({ complete() }, 2, TimeUnit.SECONDS)
     }
 
-    val variants = ObservableArrayList<TaskButtonViewModel>()
+    val buttons = ObservableArrayList<TaskButtonViewModel>()
 
     val enWord = taskContent.correctWord.enWord
     val ruWord = taskContent.correctWord.ruWord
     val transcription = taskContent.correctWord.transcription
     val imgLink = taskContent.correctWord.imgLink
 
-    fun setVatiants(){
-
+    private fun setVariants() {
+        val arr: ArrayList<String> = ArrayList()
+        arr.addAll(taskContent.variants)
+        arr.add(enWord)
+        arr.shuffle()
+        arr.forEach { buttons.add(TaskButtonViewModel(it, chooseCallback)) }
     }
 
-    fun complete(){
+    fun complete() {
         callback.call(taskContent)
-    }
-
-    fun choose(){
-
     }
 }

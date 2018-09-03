@@ -35,6 +35,12 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
             field = value
             notifyPropertyChanged(BR.showMenu)
         }
+    @get:Bindable
+    var test = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.test)
+        }
     val items = ObservableArrayList<TaskContentViewModel>()
 
     private val completeCallback = Callback<TaskContent> {
@@ -42,7 +48,9 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
         if (newPosition < items.size) {
             position = newPosition
         } else {
-            showMenu = true
+            if (!test) {
+                showMenu = true
+            } else finish()
         }
     }
 
@@ -57,7 +65,7 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
                 .map { return@map it.content }
                 .toObservable()
                 .flatMap { return@flatMap Observable.fromIterable(it) }
-                .map { return@map TaskContentViewModel(it, false,completeCallback) }
+                .map { return@map TaskContentViewModel(it, false, completeCallback) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -77,6 +85,7 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
 
     fun test() {
         items.forEach { it.test = true }
+        this.test = true
         repeat()
     }
 

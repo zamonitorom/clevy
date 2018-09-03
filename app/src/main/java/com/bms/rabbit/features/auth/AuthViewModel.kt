@@ -65,7 +65,7 @@ class AuthViewModel(private val router: Router, private val authRepository: Auth
                         if (it.localizedMessage != null) {
                             messenger.showSystemMessage(it.localizedMessage)
                         } else {
-                            messenger.showSystemMessage("Не удалось")
+                            messenger.showSystemMessage("Не удалось выполнить действие")
                         }
                     })
         } else {
