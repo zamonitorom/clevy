@@ -23,6 +23,7 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
             field = value
             notifyPropertyChanged(BR.title)
         }
+    var attempt = 0
     @get:Bindable
     var position = 0
         set(value) {
@@ -61,11 +62,14 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
     private fun loadTask() {
         loaderViewModel.startLoading()
         lessonRepository.getTask(id)
-                .doOnSuccess { title = it.name }
+                .doOnSuccess {
+                    title = it.name
+                    attempt = it.lastAttempt+1
+                }
                 .map { return@map it.content }
                 .toObservable()
                 .flatMap { return@flatMap Observable.fromIterable(it) }
-                .map { return@map TaskContentViewModel(it, false, completeCallback) }
+                .map { return@map TaskContentViewModel(lessonRepository,it, false,id,attempt, completeCallback) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({

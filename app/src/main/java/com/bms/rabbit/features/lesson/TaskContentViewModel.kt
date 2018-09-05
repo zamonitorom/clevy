@@ -5,23 +5,17 @@ import android.databinding.Bindable
 import android.databinding.ObservableArrayList
 import com.bms.rabbit.BR
 import com.bms.rabbit.entities.TaskContent
+import com.bms.rabbit.entities.TestAnswer
 import com.bms.rabbit.tools.Callback
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
 // Created by Konstantin on 31.08.2018.
 
-class TaskContentViewModel(private val taskContent: TaskContent, isTest: Boolean, private val callback: Callback<TaskContent>) : BaseObservable() {
-    override fun hashCode(): Int {
-        return taskContent.hashCode()
-    }
-
-    override fun equals(other: Any?): Boolean {
-        return if (other is TaskContentViewModel) {
-            this.taskContent == other.taskContent
-        } else false
-    }
-
+class TaskContentViewModel(private val lessonRepository: LessonRepository, private val taskContent: TaskContent,
+                           isTest: Boolean, private val taskId: Int, private val attempt: Int, private val callback: Callback<TaskContent>) : BaseObservable() {
     @get:Bindable
     var test = isTest
         set(value) {
@@ -46,15 +40,24 @@ class TaskContentViewModel(private val taskContent: TaskContent, isTest: Boolean
             notifyPropertyChanged(BR.inCorrect)
         }
 
+    @get:Bindable
+    var progress: Boolean = false
+        private set(progress) {
+            field = progress
+            notifyPropertyChanged(BR.progress)
+        }
     private val chooseCallback = Callback<TaskButtonViewModel> {
         if (it.value == enWord) {
             correct = true
-        } else inCorrect = true
+        } else {
+            inCorrect = true
+        }
 
-        buttons.forEach { it.enabled = false }
-        val exec = ScheduledThreadPoolExecutor(1)
+        val testAnswer = TestAnswer(taskId, attempt, it.value == enWord, it.value, enWord)
 
-        exec.schedule({ complete() }, 2, TimeUnit.SECONDS)
+        setResult(testAnswer)
+
+        buttons.forEach { item -> item.enabled = false }
     }
 
     val buttons = ObservableArrayList<TaskButtonViewModel>()
@@ -72,7 +75,26 @@ class TaskContentViewModel(private val taskContent: TaskContent, isTest: Boolean
         arr.forEach { buttons.add(TaskButtonViewModel(it, chooseCallback)) }
     }
 
+    private fun setResult(testAnswer: TestAnswer) {
+        progress = true
+        lessonRepository.setResult(testAnswer)
+                .delaySubscription(1100, TimeUnit.MILLISECONDS)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnEvent { t1, t2 ->
+                    progress = false
+                    complete()
+                }
+                .subscribe({}, {})
+
+//        val exec = ScheduledThreadPoolExecutor(1)
+//
+//        exec.schedule({ complete() }, 2, TimeUnit.SECONDS)
+    }
+
     fun complete() {
+//        val exec = ScheduledThreadPoolExecutor(1)
+//        exec.schedule({ callback.call(taskContent) }, 500, TimeUnit.MILLISECONDS)
         callback.call(taskContent)
     }
 }

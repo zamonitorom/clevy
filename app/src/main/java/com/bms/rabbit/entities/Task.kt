@@ -6,13 +6,16 @@ import com.google.gson.annotations.SerializedName
 
 data class TaskItem(val type: Int, val id: Int, val name: String)
 
-data class Task(val type: Int, val id: Int, val name: String,@SerializedName("data")  val content: List<TaskContent>)
+data class Task(val type: Int, val id: Int, val name: String,@SerializedName("last_attempt") val lastAttempt:Int = 0,
+                @SerializedName("data")  val content: List<TaskContent>)
 
 data class TaskContent(@SerializedName("correct_word") val correctWord: CorrectWord, val variants: List<String>)
 
 data class CorrectWord(val id: Int, @SerializedName("en_word") val enWord: String,
                        @SerializedName("ru_word") val ruWord: String, val transcription: String,
                        @SerializedName("src") val imgLink: String = "",@SerializedName("sound") val soundLink: String = "")
+
+data class TestAnswer(val taskId:Int,@SerializedName("last_attempt") val lastAttempt:Int,val isCorrect:Boolean,val givenValue:String,val correctValue:String)
 
 //{"id":4,"name":"Упражниение #2","type":0,"data":[
 // {"correct_word":{"id":2,"en_word":"dog","ru_word":"собака","imgLink":"/uploads/dog.png","transcription":"[dôg]","soundLink":""},"variants":["cat","hamster","parrot"]}
