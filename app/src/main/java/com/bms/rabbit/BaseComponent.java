@@ -90,7 +90,7 @@ public class BaseComponent {
 
 
     public String getBaseUrl() {
-        return "http://80.87.201.72/";
+        return "http://learn-rabbit.com/";
     }
 
     public Retrofit getRetrofit() {
