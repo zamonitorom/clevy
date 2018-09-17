@@ -6,6 +6,7 @@ import android.databinding.ObservableArrayList
 import android.util.Log
 import com.bms.rabbit.BR
 import com.bms.rabbit.Router
+import com.bms.rabbit.entities.FinishResult
 import com.bms.rabbit.entities.TaskContent
 import com.bms.rabbit.features.LoaderViewModel
 import com.bms.rabbit.tools.Callback
@@ -18,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
 class TaskViewModel(private val router: Router, private val lessonRepository: LessonRepository, val id: Int) : BaseObservable() {
     val loaderViewModel = LoaderViewModel({ loadTask() })
     @get:Bindable
-    var title = ""
+    var title = "Результаты теста"
         set(value) {
             field = value
             notifyPropertyChanged(BR.title)
@@ -64,12 +65,12 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
         lessonRepository.getTask(id)
                 .doOnSuccess {
                     title = it.name
-                    attempt = it.lastAttempt+1
+                    attempt = it.lastAttempt + 1
                 }
                 .map { return@map it.content }
                 .toObservable()
                 .flatMap { return@flatMap Observable.fromIterable(it) }
-                .map { return@map TaskContentViewModel(lessonRepository,it, false,id,attempt, completeCallback) }
+                .map { return@map TaskContentViewModel(lessonRepository, it, false, id, attempt, completeCallback) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -95,5 +96,46 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
 
     fun finish() {
         router.openFinish()
+    }
+
+    //вынести в другую dm.vjltkm
+    @get:Bindable
+    var passed = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.passed)
+        }
+
+    @get:Bindable
+    var correctCount = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.correctCount)
+        }
+
+    @get:Bindable
+    var incorrectCount = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.incorrectCount)
+        }
+
+    @get:Bindable
+    var percent = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.percent)
+        }
+
+    fun getTestResult(){
+        lessonRepository.getFinishResult(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ result: FinishResult ->
+                    correctCount = result.general.correctCount.toString()
+                    incorrectCount = result.general.wrongCount.toString()
+                    percent = result.general.correctPercent.toString()
+                    passed = result.passed
+                },{})
     }
 }

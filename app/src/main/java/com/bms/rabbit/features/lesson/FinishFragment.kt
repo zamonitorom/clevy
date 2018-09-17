@@ -12,6 +12,7 @@ import com.bms.rabbit.databinding.FragmentFinishBinding
 
 class FinishFragment : Fragment() {
     lateinit var binding: FragmentFinishBinding
+    lateinit var taskViewModel: TaskViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -20,8 +21,14 @@ class FinishFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.viewModel = (activity!!.applicationContext as RabbitApp).baseComponent.lessonViewModel
+        taskViewModel = (activity!!.applicationContext as RabbitApp).baseComponent.taskViewModel
+        binding.viewModel = (activity!!.applicationContext as RabbitApp).baseComponent.taskViewModel
         super.onViewCreated(view, savedInstanceState)
+    }
+
+    override fun onStart() {
+        taskViewModel.getTestResult()
+        super.onStart()
     }
 
 }

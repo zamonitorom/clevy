@@ -1,9 +1,6 @@
 package com.bms.rabbit.features.lesson
 
-import com.bms.rabbit.entities.Lesson
-import com.bms.rabbit.entities.LessonItem
-import com.bms.rabbit.entities.Task
-import com.bms.rabbit.entities.TestAnswer
+import com.bms.rabbit.entities.*
 import io.reactivex.Single
 import retrofit2.Retrofit
 import java.util.HashMap
@@ -35,5 +32,9 @@ class LessonRepository(retrofit: Retrofit) {
         fieldMap["attempt"] = textAnswer.lastAttempt.toString()
 
         return lessonApi.sendResult(fieldMap)
+    }
+
+    fun getFinishResult(id:Int):Single<FinishResult>{
+        return lessonApi.getFinishResult(id)
     }
 }

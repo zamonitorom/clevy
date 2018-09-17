@@ -41,4 +41,5 @@ class LessonViewModel(private val router: Router, private val lessonRepository: 
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ items.add(it) },{loaderViewModel.finishLoading(false)})
     }
+
 }

@@ -1,6 +1,7 @@
 package com.bms.rabbit.features.lesson;
 // Created by Konstantin on 30.08.2018.
 
+import com.bms.rabbit.entities.FinishResult;
 import com.bms.rabbit.entities.Lesson;
 import com.bms.rabbit.entities.LessonItem;
 import com.bms.rabbit.entities.Task;
@@ -29,5 +30,9 @@ public interface LessonApi {
     @FormUrlEncoded
     @POST("make-answer/")
     Single<Object> sendResult(@FieldMap Map<String,String> fieldMap);
+
+    @GET("get-statistic/{id}/")
+    Single<FinishResult> getFinishResult(@Path("id") int id);
+
 
 }
