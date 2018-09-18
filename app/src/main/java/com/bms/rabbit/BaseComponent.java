@@ -4,7 +4,6 @@ package com.bms.rabbit;
 
 import android.content.Context;
 
-import com.bms.rabbit.entities.LessonItem;
 import com.bms.rabbit.features.lesson.LessonRepository;
 import com.bms.rabbit.features.auth.AuthDbDataSource;
 import com.bms.rabbit.features.auth.AuthInterceptor;
@@ -12,7 +11,8 @@ import com.bms.rabbit.features.auth.AuthNetworkDataSource;
 import com.bms.rabbit.features.auth.AuthRepository;
 import com.bms.rabbit.features.auth.AuthRepositoryImpl;
 import com.bms.rabbit.features.lesson.LessonViewModel;
-import com.bms.rabbit.features.lesson.TaskViewModel;
+import com.bms.rabbit.features.task.FinishViewModel;
+import com.bms.rabbit.features.task.TaskViewModel;
 import com.bms.rabbit.tools.Messenger;
 import com.bms.rabbit.tools.RxErrorHandlingCallAdapterFactory;
 import com.google.gson.Gson;
@@ -32,8 +32,6 @@ public class BaseComponent {
 
     private LessonViewModel lessonViewModel;
     private LessonRepository lessonRepository;
-
-    private TaskViewModel taskViewModel;
 
     private BaseComponent() {
     }
@@ -79,19 +77,12 @@ public class BaseComponent {
         return lessonViewModel;
     }
 
-    public TaskViewModel getTaskViewModel() {
-        return taskViewModel;
+    public TaskViewModel getTaskViewModel(int taskId) {
+        return new TaskViewModel(router, getLessonRepository(), taskId);
     }
 
-    public TaskViewModel getTaskViewModel(int taskId) {
-        if (taskViewModel != null) {
-            if (taskViewModel.getId() == taskId) {
-                return taskViewModel;
-            }
-        }
-
-        taskViewModel = new TaskViewModel(router, getLessonRepository(), taskId);
-        return taskViewModel;
+    public FinishViewModel getFinishViewModel(int taskId) {
+        return new FinishViewModel(router, getLessonRepository(), taskId);
     }
 
     public AuthRepository getAuthRepository() {

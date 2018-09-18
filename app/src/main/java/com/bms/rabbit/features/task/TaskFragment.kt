@@ -1,19 +1,15 @@
-package com.bms.rabbit.features.lesson
+package com.bms.rabbit.features.task
 
-import android.animation.Animator
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
 import com.bms.rabbit.R
 import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.RouterImpl
 import com.bms.rabbit.databinding.FragmentTaskBinding
-import com.daimajia.androidanimations.library.Techniques
-import com.daimajia.androidanimations.library.YoYo
 
 class TaskFragment : Fragment() {
 

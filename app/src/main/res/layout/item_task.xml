@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.bms.rabbit.features.lesson.TaskItemViewModel" />
+            type="com.bms.rabbit.features.task.TaskItemViewModel" />
 
     </data>
 

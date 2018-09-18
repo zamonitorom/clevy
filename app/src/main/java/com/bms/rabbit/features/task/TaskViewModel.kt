@@ -1,4 +1,4 @@
-package com.bms.rabbit.features.lesson
+package com.bms.rabbit.features.task
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
@@ -9,6 +9,7 @@ import com.bms.rabbit.Router
 import com.bms.rabbit.entities.FinishResult
 import com.bms.rabbit.entities.TaskContent
 import com.bms.rabbit.features.LoaderViewModel
+import com.bms.rabbit.features.lesson.LessonRepository
 import com.bms.rabbit.tools.Callback
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,7 +20,7 @@ import io.reactivex.schedulers.Schedulers
 class TaskViewModel(private val router: Router, private val lessonRepository: LessonRepository, val id: Int) : BaseObservable() {
     val loaderViewModel = LoaderViewModel({ loadTask() })
     @get:Bindable
-    var title = "Результаты теста"
+    var title = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.title)
@@ -95,47 +96,8 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
     }
 
     fun finish() {
-        router.openFinish()
-    }
-
-    //вынести в другую dm.vjltkm
-    @get:Bindable
-    var passed = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.passed)
+        synchronized(this) {
+            router.openFinish(id)
         }
-
-    @get:Bindable
-    var correctCount = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.correctCount)
-        }
-
-    @get:Bindable
-    var incorrectCount = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.incorrectCount)
-        }
-
-    @get:Bindable
-    var percent = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.percent)
-        }
-
-    fun getTestResult(){
-        lessonRepository.getFinishResult(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ result: FinishResult ->
-                    correctCount = result.general.correctCount.toString()
-                    incorrectCount = result.general.wrongCount.toString()
-                    percent = result.general.correctPercent.toString()
-                    passed = result.passed
-                },{})
     }
 }

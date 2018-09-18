@@ -6,6 +6,7 @@ import android.databinding.ObservableArrayList
 import com.bms.rabbit.BR
 import com.bms.rabbit.Router
 import com.bms.rabbit.features.LoaderViewModel
+import com.bms.rabbit.features.task.TaskItemViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

@@ -1,4 +1,4 @@
-package com.bms.rabbit.features.lesson
+package com.bms.rabbit.features.task
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.bms.rabbit.R
 import com.bms.rabbit.RabbitApp
+import com.bms.rabbit.RouterImpl
 import com.bms.rabbit.databinding.FragmentFinishBinding
+import com.bms.rabbit.features.task.TaskViewModel
 
 class FinishFragment : Fragment() {
     lateinit var binding: FragmentFinishBinding
-    lateinit var taskViewModel: TaskViewModel
+    lateinit var finishViewModel: FinishViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -21,13 +23,16 @@ class FinishFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        taskViewModel = (activity!!.applicationContext as RabbitApp).baseComponent.taskViewModel
-        binding.viewModel = (activity!!.applicationContext as RabbitApp).baseComponent.taskViewModel
+        if(arguments!!.containsKey(RouterImpl.taskId)) {
+            val key = arguments!!.getInt(RouterImpl.taskId)
+            finishViewModel = (activity!!.applicationContext as RabbitApp).baseComponent.getFinishViewModel(key)
+            binding.viewModel = finishViewModel
+        }
         super.onViewCreated(view, savedInstanceState)
     }
 
     override fun onStart() {
-        taskViewModel.getTestResult()
+        finishViewModel.getTestResult()
         super.onStart()
     }
 

@@ -1,4 +1,4 @@
-package com.bms.rabbit.features.lesson
+package com.bms.rabbit.features.task
 
 import android.databinding.BaseObservable
 import com.bms.rabbit.Router

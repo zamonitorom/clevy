@@ -8,7 +8,7 @@
 
         <variable
             name="item"
-            type="com.bms.rabbit.features.lesson.TaskButtonViewModel" />
+            type="com.bms.rabbit.features.task.TaskButtonViewModel" />
 
     </data>
 

@@ -1,4 +1,4 @@
-package com.bms.rabbit.features.lesson
+package com.bms.rabbit.features.task
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
@@ -6,10 +6,10 @@ import android.databinding.ObservableArrayList
 import com.bms.rabbit.BR
 import com.bms.rabbit.entities.TaskContent
 import com.bms.rabbit.entities.TestAnswer
+import com.bms.rabbit.features.lesson.LessonRepository
 import com.bms.rabbit.tools.Callback
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.ScheduledThreadPoolExecutor
 import java.util.concurrent.TimeUnit
 
 // Created by Konstantin on 31.08.2018.
@@ -78,7 +78,7 @@ class TaskContentViewModel(private val lessonRepository: LessonRepository, priva
     private fun setResult(testAnswer: TestAnswer) {
         progress = true
         lessonRepository.setResult(testAnswer)
-                .delaySubscription(1100, TimeUnit.MILLISECONDS)
+                .delaySubscription(850, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnEvent { t1, t2 ->

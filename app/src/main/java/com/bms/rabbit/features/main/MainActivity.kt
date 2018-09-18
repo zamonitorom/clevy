@@ -9,12 +9,14 @@ import com.bms.rabbit.R
 import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.Router
 import com.bms.rabbit.databinding.ActivityMainBinding
+import com.bms.rabbit.features.task.FinishFragment
 
 
 class MainActivity : AppCompatActivity() {
     private val activityMainBinding: ActivityMainBinding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
     private val rootViewModel: RootViewModel by lazy {
-        RootViewModel((applicationContext as RabbitApp).baseComponent.router,(applicationContext as RabbitApp).baseComponent.authDbDataSource) }
+        RootViewModel((applicationContext as RabbitApp).baseComponent.router, (applicationContext as RabbitApp).baseComponent.authDbDataSource)
+    }
     private lateinit var router: Router
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,7 +40,10 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         Log.d("onBackPressed", supportFragmentManager.backStackEntryCount.toString())
         if (supportFragmentManager.backStackEntryCount > 1) {
-            super.onBackPressed()
+            val fragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+            if (fragment !is FinishFragment) {
+                super.onBackPressed()
+            }
         } else {
             finish()
         }

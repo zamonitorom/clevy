@@ -10,7 +10,7 @@
 
         <variable
             name="item"
-            type="com.bms.rabbit.features.lesson.TaskContentViewModel" />
+            type="com.bms.rabbit.features.task.TaskContentViewModel" />
 
     </data>
 

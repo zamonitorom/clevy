@@ -43,6 +43,14 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <style name="correctText" parent="secondaryAccentText">
+        <item name="android:textColor">@color/colorCorrect</item>
+    </style>
+
+    <style name="incorrectText" parent="secondaryAccentText">
+        <item name="android:textColor">@color/colorIncorrect</item>
+    </style>
+
     <style name="regularText">
         <item name="android:textColor">@color/colorSecondaryText</item>
         <item name="android:fontFamily">sans-serif</item>

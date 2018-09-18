@@ -9,13 +9,23 @@
 
         <variable
             name="viewModel"
-            type="com.bms.rabbit.features.lesson.TaskViewModel" />
+            type="com.bms.rabbit.features.task.TaskViewModel" />
 
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <include
+            layout="@layout/view_info_load"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:viewModel="@{viewModel.loaderViewModel}">
+
+        </include>
 
         <TextView
             android:id="@+id/textView3"

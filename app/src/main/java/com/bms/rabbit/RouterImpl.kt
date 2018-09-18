@@ -7,15 +7,12 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
-import com.bms.rabbit.R
-import com.bms.rabbit.entities.LessonItem
 import com.bms.rabbit.features.auth.AuthFragment
-import com.bms.rabbit.features.lesson.FinishFragment
+import com.bms.rabbit.features.task.FinishFragment
 import com.bms.rabbit.features.lesson.LessonFragment
-import com.bms.rabbit.features.lesson.TaskFragment
+import com.bms.rabbit.features.task.TaskFragment
 import com.bms.rabbit.features.main.MainActivity
 import com.bms.rabbit.features.main.MainFragment
-import com.google.gson.Gson
 
 class RouterImpl : Router {
     companion object {
@@ -48,13 +45,27 @@ class RouterImpl : Router {
 
     }
 
-    override fun openFinish() {
+    override fun openFinish(taskId:Int) {
+        val bundle = Bundle()
+        bundle.putInt(Companion.taskId, taskId)
+        val fragment = FinishFragment()
+        fragment.arguments = bundle
         if (activity is MainActivity) {
             activity!!.supportFragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                    .replace(R.id.fragment_container, FinishFragment())
+                    .replace(R.id.fragment_container, fragment)
                     .commit()
         }
+    }
+
+    override fun continueLesson() {
+        if (activity is MainActivity) {
+            activity!!.supportFragmentManager.beginTransaction()
+                    .remove(activity!!.supportFragmentManager.findFragmentById(R.id.fragment_container))
+                    .commit()
+            activity!!.supportFragmentManager.popBackStack()
+        }
+
     }
 
     override fun openAuth() {
