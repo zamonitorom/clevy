@@ -19,6 +19,7 @@ class AuthNetworkDataSource(retrofit: Retrofit) {
         fieldMap["name"] = newUser.name
         fieldMap["email"] = newUser.mail
         fieldMap["group_code"] = newUser.code
+        fieldMap["client_key"] = newUser.clientKey
         return authApi.createUser(fieldMap)
     }
 }

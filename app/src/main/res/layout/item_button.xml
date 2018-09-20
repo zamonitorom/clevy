@@ -26,6 +26,8 @@
             android:layout_marginTop="8dp"
             android:text="@{item.value}"
             android:enabled="@{item.enabled}"
+            android:background="@{!item.correct &amp;&amp; !item.inCorrect ? @drawable/just_button_back : @drawable/selected_button_back}"
+            app:selected="@{item.correct}"
             app:onClick="@{item::click}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

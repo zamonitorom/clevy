@@ -53,4 +53,9 @@ public class ImageViewBinding {
                     .into(view);
         }
     }
+
+    @BindingAdapter("src")
+    public static void setImageResource(ImageView imageView, int resource) {
+        imageView.setImageResource(resource);
+    }
 }

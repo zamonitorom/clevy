@@ -3,6 +3,7 @@ package com.bms.rabbit.features.task
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.bms.rabbit.BR
+import com.bms.rabbit.R
 import com.bms.rabbit.Router
 import com.bms.rabbit.entities.FinishResult
 import com.bms.rabbit.features.lesson.LessonRepository
@@ -41,26 +42,10 @@ class FinishViewModel(private val router: Router,private val lessonRepository: L
             notifyPropertyChanged(BR.percent)
         }
 
-    @get:Bindable
-    var faster = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.faster)
-        }
 
-    @get:Bindable
-    var firstAttempt = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.firstAttempt)
-        }
-
-    @get:Bindable
-    var firstInGroup = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.firstInGroup)
-        }
+    val faster = AchievementViewModel(R.drawable.faster,"Быстрее всех в группе!")
+    val firstAttempt = AchievementViewModel(R.drawable.first_attempt,"С первой попытки!")
+    val firstInGroup = AchievementViewModel(R.drawable.first,"Первый в группе!")
 
     fun getTestResult(){
         lessonRepository.getFinishResult(taskId)
@@ -76,9 +61,9 @@ class FinishViewModel(private val router: Router,private val lessonRepository: L
         incorrectCount = finishResult.general.wrongCount.toString()
         percent = finishResult.general.correctPercent.toString()
 
-        faster = finishResult.achievements.faster
-        firstAttempt = finishResult.achievements.firstAttempt
-        firstInGroup = finishResult.achievements.firstInGroup
+        faster.visible = /*true*/ finishResult.achievements.faster
+        firstAttempt.visible = /*true*/ finishResult.achievements.firstAttempt
+        firstInGroup.visible =/*true*/ finishResult.achievements.firstInGroup
     }
 
     fun continueLesson(){

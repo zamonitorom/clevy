@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="24dp"
             android:text="Правильных ответов: "
             app:layout_constraintEnd_toStartOf="@+id/guideline2"
             app:layout_constraintStart_toStartOf="parent"
@@ -150,48 +150,46 @@
             app:layout_constraintTop_toBottomOf="@+id/textView19"
             app:onClick="@{viewModel::continueLesson}" />
 
-        <TextView
+        <LinearLayout
             android:id="@+id/textView15"
-            style="@style/correctText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:text="Быстрее всех в группе!"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView13"
-            app:visibility="@{viewModel.faster}" />
+            app:layout_constraintTop_toBottomOf="@+id/textView13">
 
-        <TextView
-            style="@style/secondaryAccentText"
+            <include
+                layout="@layout/item_achievement"
+                app:item="@{viewModel.faster}"/>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/textView18"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="С первой попытки!"
-            app:visibility="@{viewModel.firstAttempt}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView15" />
+            app:layout_constraintTop_toBottomOf="@+id/textView15">
 
-        <TextView
-            style="@style/correctText"
+            <include
+                layout="@layout/item_achievement"
+                app:item="@{viewModel.firstAttempt}"/>
+        </LinearLayout>
+
+
+        <LinearLayout
             android:id="@+id/textView19"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="Первый в группе!"
-            app:visibility="@{viewModel.firstInGroup}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView18" />
+            app:layout_constraintTop_toBottomOf="@+id/textView18">
 
+            <include
+                layout="@layout/item_achievement"
+                app:item="@{viewModel.firstInGroup}"/>
+        </LinearLayout>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

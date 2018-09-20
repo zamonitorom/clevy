@@ -11,6 +11,7 @@ import com.bms.rabbit.features.LoaderViewModel
 import com.bms.rabbit.tools.Messenger
 import com.bms.rabbit.tools.StringContainer
 import com.crashlytics.android.Crashlytics
+import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -52,9 +53,10 @@ class AuthViewModel(private val router: Router, private val authRepository: Auth
     }
 
     fun sendData() {
+        var key = if (FirebaseInstanceId.getInstance().token != null) FirebaseInstanceId.getInstance().token!! else ""
         if (!errorMail) {
             loaderViewModel.startLoading()
-            authRepository.createUser(NewUser(name.get(), mail.get(), code.get()))
+            authRepository.createUser(NewUser(name.get(), mail.get(), code.get(), key))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({

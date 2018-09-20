@@ -7,7 +7,7 @@ import com.bms.rabbit.tools.Callback
 
 // Created by Konstantin on 02.09.2018.
 
-class TaskButtonViewModel(val value:String, private val clockCallback: Callback<TaskButtonViewModel>):BaseObservable() {
+class TaskButtonViewModel(val value:String, private val clickCallback: Callback<TaskButtonViewModel>):BaseObservable() {
     @get:Bindable
     var enabled = true
         set(value) {
@@ -15,7 +15,21 @@ class TaskButtonViewModel(val value:String, private val clockCallback: Callback<
             notifyPropertyChanged(BR.enabled)
         }
 
+    @get:Bindable
+    var correct = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.correct)
+        }
+
+    @get:Bindable
+    var inCorrect = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.inCorrect)
+        }
+
     fun click(){
-        clockCallback.call(this)
+        clickCallback.call(this)
     }
 }

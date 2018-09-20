@@ -26,19 +26,7 @@ class TaskContentViewModel(private val lessonRepository: LessonRepository, priva
             notifyPropertyChanged(BR.test)
         }
 
-    @get:Bindable
-    var correct = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.correct)
-        }
 
-    @get:Bindable
-    var inCorrect = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.inCorrect)
-        }
 
     @get:Bindable
     var progress: Boolean = false
@@ -48,9 +36,9 @@ class TaskContentViewModel(private val lessonRepository: LessonRepository, priva
         }
     private val chooseCallback = Callback<TaskButtonViewModel> {
         if (it.value == enWord) {
-            correct = true
+            it.correct = true
         } else {
-            inCorrect = true
+            it.inCorrect = true
         }
 
         val testAnswer = TestAnswer(taskId, attempt, it.value == enWord, it.value, enWord)
