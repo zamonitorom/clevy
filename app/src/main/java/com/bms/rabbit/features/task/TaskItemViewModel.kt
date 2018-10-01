@@ -9,6 +9,6 @@ import com.bms.rabbit.entities.TaskItem
 class TaskItemViewModel(private val router: Router,private val taskItem:TaskItem):BaseObservable() {
     val title = taskItem.name
     fun click(){
-        router.openTask(taskItem.id)
+        router.openTask(taskItem.id,taskItem.type)
     }
 }

@@ -31,4 +31,6 @@ public class NonSwipeViewPager extends ViewPager {
 
         return false;
     }
+
+
 }

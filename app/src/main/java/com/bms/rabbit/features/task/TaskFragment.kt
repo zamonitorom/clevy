@@ -23,8 +23,9 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         if(arguments!!.containsKey(RouterImpl.taskId)) {
-            val key = arguments!!.getInt(RouterImpl.taskId)
-            binding.viewModel = (activity!!.applicationContext as RabbitApp).baseComponent.getTaskViewModel(key)
+            val id = arguments!!.getInt(RouterImpl.taskId)
+            val type = arguments!!.getInt(RouterImpl.taskType)
+            binding.viewModel = (activity!!.applicationContext as RabbitApp).baseComponent.getTaskViewModel(id,type)
         }
         super.onViewCreated(view, savedInstanceState)
 

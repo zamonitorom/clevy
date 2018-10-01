@@ -18,6 +18,7 @@ class RouterImpl : Router {
     companion object {
         const val lessonId = "lessonId"
         const val taskId = "taskId"
+        const val taskType = "taskType"
     }
     private var activity: FragmentActivity? = null
 
@@ -82,9 +83,10 @@ class RouterImpl : Router {
         changeFragment(LessonFragment(),bundle)
     }
 
-    override fun openTask(id:Int) {
+    override fun openTask(id:Int,type:Int) {
         val bundle = Bundle()
         bundle.putInt(taskId, id)
+        bundle.putInt(taskType, type)
         changeFragment(TaskFragment(),bundle)
     }
 }

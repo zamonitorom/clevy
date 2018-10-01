@@ -6,6 +6,7 @@ import android.databinding.ObservableList;
 import android.support.v4.view.ViewPager;
 
 import com.bms.rabbit.adapters.BindingViewPagerAdapter;
+import com.bms.rabbit.features.ListViewModel;
 import com.bms.rabbit.tools.Callback;
 
 public class ViewPagerBinding {
@@ -13,6 +14,13 @@ public class ViewPagerBinding {
     @BindingAdapter({"items", "itemLayout", "variable"})
     public static void setPagerAdapter(ViewPager viewPager, final ObservableList items, int layoutId, int brVarId) {
         BindingViewPagerAdapter adapter = new BindingViewPagerAdapter(layoutId, brVarId, items);
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(0);
+    }
+
+    @BindingAdapter({"listViewModel"})
+    public static void setPagerAdapter(ViewPager viewPager, final ListViewModel listViewModel) {
+        BindingViewPagerAdapter adapter = new BindingViewPagerAdapter(listViewModel.getLayoutId(), listViewModel.getBrVarId(), listViewModel.getItems());
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);
     }

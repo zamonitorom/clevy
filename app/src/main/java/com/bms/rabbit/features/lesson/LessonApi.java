@@ -5,7 +5,8 @@ import com.bms.rabbit.entities.FinishResult;
 import com.bms.rabbit.entities.Lesson;
 import com.bms.rabbit.entities.LessonItem;
 import com.bms.rabbit.entities.Task;
-import com.bms.rabbit.entities.UserResponse;
+import com.bms.rabbit.entities.TaskSentenceContent;
+import com.bms.rabbit.entities.TaskWordContent;
 
 import java.util.List;
 import java.util.Map;
@@ -25,7 +26,10 @@ public interface LessonApi {
     Single<Lesson> getLessonWithTasks(@Path("id") int id);
 
     @GET("get-task-detail/{id}/")
-    Single<Task> getTask(@Path("id") int id);
+    Single<Task<TaskWordContent>> getTaskWord(@Path("id") int id);
+
+    @GET("get-task-detail/{id}/")
+    Single<Task<TaskSentenceContent>> getTaskSentence(@Path("id") int id);
 
     @FormUrlEncoded
     @POST("make-answer/")

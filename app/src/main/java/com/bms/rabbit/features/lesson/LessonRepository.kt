@@ -10,20 +10,27 @@ import java.util.HashMap
 class LessonRepository(retrofit: Retrofit) {
     private val lessonApi: LessonApi = retrofit.create<LessonApi>(LessonApi::class.java)
 
-    fun getLessons(): Single<List<LessonItem>>{
+    fun getLessons(): Single<List<LessonItem>> {
         return lessonApi.lessons
     }
 
-    fun getLesson(id:Int):Single<Lesson>{
+    fun getLesson(id: Int): Single<Lesson> {
         return lessonApi.getLessonWithTasks(id)
     }
 
-    fun getTask(id:Int):Single<Task>{
-        return lessonApi.getTask(id)
+    fun <T> getTask(id: Int, type: Int): Single<Task<T>> {
+        if (type == 0) {
+            return lessonApi.getTaskWord(id) as Single<Task<T>>
+        }
+        if (type == 1) {
+            return lessonApi.getTaskSentence(id) as Single<Task<T>>
+        }
+
+        return Single.just(Task(0,0,"",0,ArrayList()))
     }
 
-    fun setResult(textAnswer: TestAnswer):Single<Any>{
-        val cc:Int = if(textAnswer.isCorrect) 1 else 0
+    fun setResult(textAnswer: TestAnswer): Single<Any> {
+        val cc: Int = if (textAnswer.isCorrect) 1 else 0
         val fieldMap = HashMap<String, String>()
         fieldMap["task"] = textAnswer.taskId.toString()
         fieldMap["is_correct"] = cc.toString()
@@ -34,7 +41,7 @@ class LessonRepository(retrofit: Retrofit) {
         return lessonApi.sendResult(fieldMap)
     }
 
-    fun getFinishResult(id:Int):Single<FinishResult>{
+    fun getFinishResult(id: Int): Single<FinishResult> {
         return lessonApi.getFinishResult(id)
     }
 }

@@ -77,8 +77,8 @@ public class BaseComponent {
         return lessonViewModel;
     }
 
-    public TaskViewModel getTaskViewModel(int taskId) {
-        return new TaskViewModel(router, getLessonRepository(), taskId);
+    public TaskViewModel getTaskViewModel(int taskId,int type) {
+        return new TaskViewModel(router, getLessonRepository(), taskId,type);
     }
 
     public FinishViewModel getFinishViewModel(int taskId) {

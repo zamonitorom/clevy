@@ -10,7 +10,6 @@ import com.bms.rabbit.R
 import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.RouterImpl
 import com.bms.rabbit.databinding.FragmentFinishBinding
-import com.bms.rabbit.features.task.TaskViewModel
 
 class FinishFragment : Fragment() {
     lateinit var binding: FragmentFinishBinding
