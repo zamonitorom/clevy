@@ -10,7 +10,8 @@ class LessonItemViewModel(private val router: Router, private val lessonItem: Le
 
     val title = lessonItem.topic
     val dateEnd = lessonItem.dateEnd
-
+    val img = lessonItem.img
+    val level = lessonItem.level
 
     fun click(){
         router.openLesson(lessonItem.id)

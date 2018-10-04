@@ -15,6 +15,11 @@ public class CommonBinding {
         }
     }
 
+    @BindingAdapter("background")
+    public static void setVisibility(View view, int resId) {
+        view.setBackgroundResource(resId);
+    }
+
     @BindingAdapter({"onClick"})
     public static void bindOnClick(View view, final Runnable runnable) {
         view.setOnClickListener(new View.OnClickListener() {

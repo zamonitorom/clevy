@@ -39,8 +39,9 @@
     </style>
 
     <style name="secondaryAccentText">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorPrimaryText</item>
+        <item name="android:fontFamily">Roboto</item>
+        <item name="android:textSize">20sp</item>
     </style>
 
     <style name="correctText" parent="secondaryAccentText">
@@ -61,6 +62,12 @@
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:fontFamily">sans-serif-light</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="typeText" parent="regularText">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
     </style>
 
     <style name="justButton">

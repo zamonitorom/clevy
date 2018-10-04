@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#40C4FF</color>
     <color name="colorPrimaryDark">#00B0FF</color>
-    <color name="colorPrimaryLight">#BBDEFB</color>
+    <color name="colorPrimaryLight">#80D8FF</color>
     <color name="colorAccent">#757575</color>
     <color name="colorPrimaryText">#212121</color>
     <color name="colorSecondaryText">#757575</color>
@@ -13,7 +13,7 @@
 
     <color name="CustomPrimary">#7C4DFF</color>
     <color name="CustomcPrimaryDark">#CCC</color>
-    <color name="CustomcAccent">#0cc157</color>
+    <color name="CustomcAccent">#A2F78D</color>
 
     <color name="colorWhite">#FFF</color>
     <color name="colorIncorrect">#ff8080</color>

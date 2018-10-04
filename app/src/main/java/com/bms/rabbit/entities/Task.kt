@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName
 
 data class TaskItem(val type: Int, val id: Int, val name: String)
 /**
+ * type - enum
  * "type":0 - words
  * "type":1 - sentences
  */
