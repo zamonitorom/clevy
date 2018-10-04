@@ -11,6 +11,7 @@ class LessonItemViewModel(private val router: Router, private val lessonItem: Le
     val title = lessonItem.topic
     val dateEnd = lessonItem.dateEnd
 
+
     fun click(){
         router.openLesson(lessonItem.id)
     }

@@ -3,6 +3,7 @@ package com.bms.rabbit
 // Created by Konstantin on 18.08.2018.
 
 
+import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
@@ -13,6 +14,10 @@ import com.bms.rabbit.features.lesson.LessonFragment
 import com.bms.rabbit.features.task.TaskFragment
 import com.bms.rabbit.features.main.MainActivity
 import com.bms.rabbit.features.main.MainFragment
+import android.support.v4.content.ContextCompat
+import android.view.WindowManager
+
+
 
 class RouterImpl : Router {
     companion object {
@@ -70,6 +75,20 @@ class RouterImpl : Router {
     }
 
     override fun openAuth() {
+        /*
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        val window = activity!!.window
+
+// clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+
+// add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+
+// finally change the color
+            window.statusBarColor = ContextCompat.getColor(activity!!, R.color.transparent)
+        }
+*/
         changeFragment(AuthFragment())
     }
 

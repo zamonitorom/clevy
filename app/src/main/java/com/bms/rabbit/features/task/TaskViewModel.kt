@@ -17,6 +17,7 @@ import com.bms.rabbit.tools.Callback
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 
 // Created by Konstantin on 29.08.2018.
 
@@ -69,6 +70,7 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
         if(type ==0){
             listViewModel.layoutId = R.layout.fragment_word_content
             lessonRepository.getTask<TaskWordContent>(id,type)
+                    .delaySubscription(450, TimeUnit.MILLISECONDS)
                     .doOnSuccess {
                         title = it.name
                         attempt = it.lastAttempt + 1
@@ -90,6 +92,7 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
         } else{
             listViewModel.layoutId = R.layout.fragment_sentence_content
             lessonRepository.getTask<TaskSentenceContent>(id,type)
+                    .delaySubscription(450, TimeUnit.MILLISECONDS)
                     .doOnSuccess {
                         title = it.name
                         attempt = it.lastAttempt + 1

@@ -15,7 +15,9 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/task_back"
+        >
 
         <include
             layout="@layout/view_info_load"
@@ -31,8 +33,8 @@
             android:id="@+id/textView3"
             style="@style/primeText"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/colorPrimary"
+            android:layout_height="60dp"
+            android:background="@drawable/toolbar"
             android:gravity="center"
             android:text="@{viewModel.title}"
             app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +69,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:visibility="@{false}"
+            android:visibility="gone"
             app:visibilityAnim="@{viewModel.showMenu}" />
 
 
@@ -91,7 +93,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:duration="@{700}"
-            app:visibility="@{false}"
+            android:visibility="gone"
             app:visibilityAnim="@{viewModel.showMenu}"
             >
 

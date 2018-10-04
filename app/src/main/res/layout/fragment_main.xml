@@ -19,7 +19,9 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/login_back"
+        >
 
 
         <TextView
@@ -27,8 +29,8 @@
             style="@style/primeText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/colorPrimary"
             android:gravity="center"
+            android:background="@drawable/toolbar"
             android:text="Список уроков" />
 
         <android.support.v7.widget.RecyclerView
