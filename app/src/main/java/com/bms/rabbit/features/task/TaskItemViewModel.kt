@@ -11,6 +11,7 @@ import com.bms.rabbit.entities.TaskItem
 
 class TaskItemViewModel(private val router: Router, private val taskItem: TaskItem) : BaseObservable() {
     val title = taskItem.name
+    val img = taskItem.img
     private val type = taskItem.type
 
     @get:Bindable

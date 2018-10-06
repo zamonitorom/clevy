@@ -16,6 +16,11 @@
     <color name="CustomcAccent">#A2F78D</color>
 
     <color name="colorWhite">#FFF</color>
-    <color name="colorIncorrect">#ff8080</color>
-    <color name="colorCorrect">#70c663</color>
+    <color name="colorWhite50">#a9ffffff</color>
+    <color name="colorIncorrect">#F69988</color>
+    <color name="colorCorrect">#A2F78D</color>
+
+    <color name="colorYellow">#FFC108</color>
+    <color name="colorPink">#FF4081</color>
+    <color name="colorCyan">#64FFDA</color>
 </resources>

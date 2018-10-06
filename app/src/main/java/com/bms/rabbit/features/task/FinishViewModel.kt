@@ -9,6 +9,8 @@ import com.bms.rabbit.entities.FinishResult
 import com.bms.rabbit.features.lesson.LessonRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.ScheduledThreadPoolExecutor
+import java.util.concurrent.TimeUnit
 
 // Created by Konstantin on 18.09.2018.
 
@@ -61,9 +63,10 @@ class FinishViewModel(private val router: Router,private val lessonRepository: L
         incorrectCount = finishResult.general.wrongCount.toString()
         percent = finishResult.general.correctPercent.toString()
 
-        faster.visible = /*true*/ finishResult.achievements.faster
-        firstAttempt.visible = /*true*/ finishResult.achievements.firstAttempt
-        firstInGroup.visible =/*true*/ finishResult.achievements.firstInGroup
+        val exec = ScheduledThreadPoolExecutor(3)
+        exec.schedule({ faster.visible = true/* finishResult.achievements.faster*/}, 1, TimeUnit.MILLISECONDS)
+        exec.schedule({ firstAttempt.visible = true /*finishResult.achievements.firstAttempt*/}, 500, TimeUnit.MILLISECONDS)
+        exec.schedule({ firstInGroup.visible =true /*finishResult.achievements.firstInGroup*/ }, 1000, TimeUnit.MILLISECONDS)
     }
 
     fun continueLesson(){

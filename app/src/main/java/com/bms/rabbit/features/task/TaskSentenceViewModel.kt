@@ -9,12 +9,11 @@ import com.bms.rabbit.tools.Callback
 
 // Created by Konstantin on 30.09.2018.
 
-class TaskSentenceViewModel(private val lessonRepository: LessonRepository, private val taskSentenceContent: TaskSentenceContent,
+class TaskSentenceViewModel(lessonRepository: LessonRepository, private val taskSentenceContent: TaskSentenceContent,
                             isTest: Boolean, private val taskId: Int, private val attempt: Int,
-                            private val callback: Callback<BaseTaskContentViewModel>) : BaseTaskContentViewModel(lessonRepository, isTest, taskId, attempt, callback) {
+                            callback: Callback<BaseTaskContentViewModel>) : BaseTaskContentViewModel(lessonRepository, isTest, taskId, attempt, callback) {
 
-    val prefix = taskSentenceContent.prefix
-    val suffix = taskSentenceContent.suffix
+    val text = taskSentenceContent.prefix +"  ...  "+ taskSentenceContent.suffix
 
     val correctWord = if (taskSentenceContent.pair.first.isCorrect) taskSentenceContent.pair.first.value else taskSentenceContent.pair.second.value
 

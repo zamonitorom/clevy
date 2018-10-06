@@ -25,10 +25,12 @@
             android:id="@+id/imageView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_back"
+            android:padding="32dp"
             app:imageUrl="@{item.imgLink}"
             app:layout_constraintBottom_toTopOf="@+id/frameLayout"
             app:layout_constraintEnd_toEndOf="parent"
@@ -51,18 +53,20 @@
 
                 <TextView
                     android:id="@+id/textView11"
-                    style="@style/regularText"
+                    style="@style/primeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
-                    android:text="@{item.ruWord}" />
+                    android:text="@{item.ruWord}"
+                    app:visibility="@{!item.ruWord.isEmpty()}"
+                    />
 
                 <TextView
                     android:id="@+id/textView5"
-                    style="@style/accentText"
+                    style="@style/primeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -81,7 +85,8 @@
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
                     android:text="@{item.enWord}"
-                    android:textColor="@color/colorPrimaryText" />
+                    android:textSize="22sp"
+                    />
 
                 <Button
                     android:id="@+id/button3"
@@ -104,13 +109,14 @@
 
                 <TextView
                     android:id="@+id/textView12"
-                    style="@style/regularText"
+                    style="@style/primeText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginStart="16dp"
+                    app:visibility="@{!item.ruWord.isEmpty()}"
                     android:text="@{item.ruWord}" />
 
                 <android.support.v7.widget.RecyclerView

@@ -19,36 +19,43 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
-        app:visibility="@{item.visible}"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/colorWhite50"
+        app:visibilityAnim="@{item.visible}"
+        app:animDuration="@{600}"
+        app:animType="@{0}"
         app:cardCornerRadius="12dp">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/imageView3"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:src="@{item.picId}" />
 
             <TextView
                 style="@style/regularText"
-                android:layout_width="0dp"
+                android:layout_width="276dp"
                 android:layout_height="wrap_content"
-                android:gravity="center"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:gravity="center"
                 android:text="@{item.text}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imageView3"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>
