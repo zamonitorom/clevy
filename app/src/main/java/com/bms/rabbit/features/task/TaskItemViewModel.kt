@@ -8,10 +8,13 @@ import com.bms.rabbit.Router
 import com.bms.rabbit.entities.TaskItem
 
 // Created by Konstantin on 31.08.2018.
-
+/**
+ * {@R.layout.item_task}
+ */
 class TaskItemViewModel(private val router: Router, private val taskItem: TaskItem) : BaseObservable() {
     val title = taskItem.name
     val img = taskItem.img
+    val passed = taskItem.passed
     private val type = taskItem.type
 
     @get:Bindable
@@ -26,12 +29,12 @@ class TaskItemViewModel(private val router: Router, private val taskItem: TaskIt
     private fun defineType() {
         when (type) {
             0 -> {
-                typeText = "Слова"
+                typeText = "words"
                 background = R.drawable.word_back
 
             }
             1 -> {
-                typeText = "Грамматика"
+                typeText = "grammar"
                 background = R.drawable.sentence_back
             }
         }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 // Created by Konstantin on 02.09.2018.
 
-data class TaskItem(val type: Int, val id: Int, val name: String,@SerializedName("img_src")val img:String)
+data class TaskItem(val type: Int, val id: Int, val name: String,@SerializedName("img_src")val img:String,@SerializedName("is_passed")val passed:Boolean)
 /**
  * type - enum
  * "type":0 - words
@@ -19,6 +19,10 @@ data class CorrectWord(val id: Int, @SerializedName("en_word") val enWord: Strin
                        @SerializedName("ru_word") val ruWord: String = "", val transcription: String,
                        @SerializedName("src") val imgLink: String = "", @SerializedName("sound") val soundLink: String = "")
 
+/**
+ * звук
+ * https://translate.google.com/translate_tts?ie=UTF-8&q=antimatter&tl=en&total=1&idx=0&textlen=10&tk=171125.268679&client=t&prev=input&ttsspeed=0.24
+ */
 //{"prefix":"I","suffix":"swimming.","pair":{"first":{"is_correct":true,"value":"like"},"second":{"is_correct":false,"value":"likes"}}}
 data class TaskSentenceContent(val prefix: String, val suffix: String,val pair: MPair)
 data class MPair(val first:SentenceVariant,val second:SentenceVariant)

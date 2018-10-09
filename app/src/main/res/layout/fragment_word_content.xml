@@ -32,6 +32,7 @@
             android:background="@drawable/card_back"
             android:padding="32dp"
             app:imageUrl="@{item.imgLink}"
+
             app:layout_constraintBottom_toTopOf="@+id/frameLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -131,6 +132,20 @@
 
             </LinearLayout>
         </FrameLayout>
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView7"-->
+            <!--android:layout_width="42dp"-->
+            <!--android:layout_height="42dp"-->
+            <!--android:layout_marginBottom="8dp"-->
+            <!--android:layout_marginEnd="8dp"-->
+            <!--android:layout_marginStart="8dp"-->
+            <!--app:layout_constraintBottom_toBottomOf="@+id/imageView2"-->
+            <!--app:layout_constraintEnd_toEndOf="@+id/imageView2"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/imageView2"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/imageView2"-->
+            <!--app:onClick="@{item::playSound}"-->
+            <!--app:srcCompat="@drawable/speaker" />-->
     </android.support.constraint.ConstraintLayout>
 
 </layout>

@@ -31,7 +31,7 @@
             android:layout_marginBottom="60dp"
             android:gravity="center"
             android:maxWidth="250dp"
-            android:text="Не удалось загрузить данные. Проверьте подключение к сети"
+            android:text="Failed to load data. Check your network connection and try again."
             app:visibility="@{viewModel.error}" />
 
         <Button
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Повторить попытку"
+            android:text="Retry"
             app:onClick="@{viewModel::retry}"
             app:visibility="@{viewModel.error}" />
 

@@ -14,6 +14,7 @@ import com.bms.rabbit.features.ListViewModel
 import com.bms.rabbit.features.LoaderViewModel
 import com.bms.rabbit.features.lesson.LessonRepository
 import com.bms.rabbit.tools.Callback
+import com.bms.rabbit.tools.SoundPlayer
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -59,11 +60,16 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
                 showMenu = true
             } else finish()
         }
+
+        //dirty state
+        soundPlayer.reset()
     }
 
     init {
         loadTask()
     }
+
+    private val soundPlayer = SoundPlayer()
 
     private fun loadTask() {
         loaderViewModel.startLoading()
@@ -78,7 +84,7 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
                     .map { return@map it.content }
                     .toObservable()
                     .flatMap { return@flatMap Observable.fromIterable(it) }
-                    .map { return@map TaskWordContentViewModel(lessonRepository, it, false, id, attempt, completeCallback) }
+                    .map { return@map TaskWordContentViewModel(lessonRepository, it, false, id, attempt, completeCallback,soundPlayer) }
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
@@ -126,8 +132,13 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
         repeat()
     }
 
+    fun stop(){
+        soundPlayer.stopPlaying()
+    }
+
     fun finish() {
         synchronized(this) {
+            stop()
             router.openFinish(id)
         }
     }

@@ -30,4 +30,9 @@ class TaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
 
+    override fun onPause() {
+        binding.viewModel?.stop()
+        super.onPause()
+    }
+
 }

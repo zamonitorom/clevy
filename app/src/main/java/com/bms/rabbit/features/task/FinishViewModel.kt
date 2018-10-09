@@ -45,9 +45,9 @@ class FinishViewModel(private val router: Router,private val lessonRepository: L
         }
 
 
-    val faster = AchievementViewModel(R.drawable.faster,"Быстрее всех в группе!")
-    val firstAttempt = AchievementViewModel(R.drawable.first_attempt,"С первой попытки!")
-    val firstInGroup = AchievementViewModel(R.drawable.first,"Первый в группе!")
+    val faster = AchievementViewModel(R.drawable.faster,"You're faster than everyone in the group!")
+    val firstAttempt = AchievementViewModel(R.drawable.first_attempt,"You've passed on the first try!")
+    val firstInGroup = AchievementViewModel(R.drawable.first,"You're first in the group")
 
     fun getTestResult(){
         lessonRepository.getFinishResult(taskId)
@@ -64,9 +64,9 @@ class FinishViewModel(private val router: Router,private val lessonRepository: L
         percent = finishResult.general.correctPercent.toString()
 
         val exec = ScheduledThreadPoolExecutor(3)
-        exec.schedule({ faster.visible = true/* finishResult.achievements.faster*/}, 1, TimeUnit.MILLISECONDS)
-        exec.schedule({ firstAttempt.visible = true /*finishResult.achievements.firstAttempt*/}, 500, TimeUnit.MILLISECONDS)
-        exec.schedule({ firstInGroup.visible =true /*finishResult.achievements.firstInGroup*/ }, 1000, TimeUnit.MILLISECONDS)
+        exec.schedule({ faster.visible = /*true*/ finishResult.achievements.faster}, 1, TimeUnit.MILLISECONDS)
+        exec.schedule({ firstAttempt.visible = /*true */finishResult.achievements.firstAttempt}, 500, TimeUnit.MILLISECONDS)
+        exec.schedule({ firstInGroup.visible =/*true */finishResult.achievements.firstInGroup}, 1000, TimeUnit.MILLISECONDS)
     }
 
     fun continueLesson(){
