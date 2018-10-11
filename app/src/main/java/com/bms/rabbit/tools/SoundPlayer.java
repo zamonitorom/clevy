@@ -2,6 +2,7 @@ package com.bms.rabbit.tools;
 // Created by Konstantin on 08.10.2018.
 
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import java.io.IOException;
 
@@ -11,6 +12,7 @@ public class SoundPlayer {
     private MediaPlayer mp = new MediaPlayer();
 
     public void play(String url) {
+        Log.d("SoundPlayer", url);
         if (mp == null) {
             mp = new MediaPlayer();
         }
@@ -24,23 +26,30 @@ public class SoundPlayer {
                     mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                         @Override
                         public void onPrepared(MediaPlayer mp) {
+                            Log.d("SoundPlayer", "onPrepared");
                             mp.start();
+                            isReady = true;
                         }
                     });
-                    isReady = true;
+
                 }
 
-                mp.start();
+                if (isReady) {
+                    mp.start();
+                }
+
 
                 mp.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mediaPlayer) {
+                        Log.d("SoundPlayer", "onPrepared");
                         isPLAYING = false;
                     }
                 });
                 mp.setOnErrorListener(new MediaPlayer.OnErrorListener() {
                     @Override
                     public boolean onError(MediaPlayer mp, int what, int extra) {
+                        Log.d("SoundPlayer", "onError");
                         reset();
                         return false;
                     }
@@ -55,12 +64,16 @@ public class SoundPlayer {
     }
 
     public void reset() {
+        Log.d("SoundPlayer", "reset");
         isReady = false;
-        mp.reset();
+        if (mp != null) {
+            mp.reset();
+        }
     }
 
     public void stopPlaying() {
-        if(mp!=null) {
+        Log.d("SoundPlayer", "stopPlaying");
+        if (mp != null) {
             mp.release();
             mp = null;
         }
