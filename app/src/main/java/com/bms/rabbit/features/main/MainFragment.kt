@@ -25,7 +25,8 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val router =(activity!!.applicationContext as RabbitApp).baseComponent.router
         val repo =(activity!!.applicationContext as RabbitApp).baseComponent.lessonRepository
-        binding.viewModel = MainViewModel(router,repo)
+        val authDbDataSource =(activity!!.applicationContext as RabbitApp).baseComponent.authDbDataSource
+        binding.viewModel = MainViewModel(router,repo,authDbDataSource)
         super.onViewCreated(view, savedInstanceState)
     }
 

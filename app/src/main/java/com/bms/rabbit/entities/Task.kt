@@ -13,14 +13,21 @@ data class TaskItem(val type: Int, val id: Int, val name: String,
  * "type":0 - words
  * "type":1 - sentences
  */
-data class Task<T>(val type: Int, val id: Int, val name: String, @SerializedName("last_attempt") val lastAttempt: Int = 0,
+data class Task<T>(val type: Int,
+                   val id: Int,
+                   val name: String,
+                   @SerializedName("show_russian")  val showRussian: Boolean = false,
+                   @SerializedName("last_attempt") val lastAttempt: Int = 0,
                    @SerializedName("data") val content: List<T>)
 
 data class TaskWordContent(@SerializedName("correct_word") val correctWord: CorrectWord, val variants: List<String>)
 
-data class CorrectWord(val id: Int, @SerializedName("en_word") val enWord: String,
-                       @SerializedName("ru_word") val ruWord: String = "", val transcription: String,
-                       @SerializedName("src") val imgLink: String = "", @SerializedName("sound") val soundLink: String = "")
+data class CorrectWord(val id: Int,
+                       @SerializedName("en_word") val enWord: String,
+                       @SerializedName("ru_word") val ruWord: String = "",
+                       val transcription: String,
+                       @SerializedName("src") val imgLink: String = "",
+                       @SerializedName("sound") val soundLink: String = "")
 
 /**
  * звук
@@ -33,7 +40,11 @@ data class MPair(val first: SentenceVariant, val second: SentenceVariant)
 data class SentenceVariant(@SerializedName("is_correct") val isCorrect: Boolean, val value: String)
 
 
-data class TestAnswer(val taskId: Int, @SerializedName("last_attempt") val lastAttempt: Int, val isCorrect: Boolean, val givenValue: String, val correctValue: String)
+data class TestAnswer(val taskId: Int,
+                      @SerializedName("last_attempt") val lastAttempt: Int,
+                      val isCorrect: Boolean,
+                      val givenValue: String,
+                      val correctValue: String)
 
 //{"id":4,"name":"Упражниение #2","type":0,"data":[
 // {"correct_word":{"id":2,"en_word":"dog","ru_word":"собака","imgLink":"/uploads/dog.png","transcription":"[dôg]","soundLink":""},"variants":["cat","hamster","parrot"]}

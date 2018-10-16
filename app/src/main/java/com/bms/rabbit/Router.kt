@@ -1,7 +1,6 @@
 package com.bms.rabbit
 
 import android.support.v4.app.FragmentActivity
-import com.bms.rabbit.entities.LessonItem
 
 // Created by Konstantin on 18.08.2018.
 
@@ -14,6 +13,8 @@ interface Router {
     fun openProfile()
     fun openFinish(taskId:Int)
     fun continueLesson()
+    fun openPayment()
     fun setActivity(activity: FragmentActivity)
     fun releaseActivity()
+    fun clearStack()
 }

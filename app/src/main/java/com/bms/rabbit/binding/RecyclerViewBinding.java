@@ -4,11 +4,14 @@ package com.bms.rabbit.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableList;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 
 import com.bms.rabbit.adapters.BindingRecyclerViewAdapter;
+import com.bms.rabbit.adapters.BindingViewPagerAdapter;
 import com.bms.rabbit.adapters.ItemDecorationManager;
 import com.bms.rabbit.adapters.LayoutManagers;
+import com.bms.rabbit.features.ListViewModel;
 import com.bms.rabbit.tools.recyclerAnim.ItemAnimatorManager;
 
 
@@ -25,6 +28,18 @@ public class RecyclerViewBinding {
         }
         adapter.setItems(items);
 
+    }
+
+    @BindingAdapter({"listViewModel"})
+    public static void setPagerAdapter(RecyclerView recyclerView, final ListViewModel listViewModel) {
+        BindingRecyclerViewAdapter adapter = (BindingRecyclerViewAdapter) recyclerView.getAdapter();
+
+        if (adapter == null) {
+            adapter = new BindingRecyclerViewAdapter(listViewModel.getBrVarId(), listViewModel.getLayoutId());
+            adapter.notifyDataSetChanged();
+            recyclerView.setAdapter(adapter);
+        }
+        adapter.setItems(listViewModel.getItems());
     }
 
     @BindingAdapter("layoutManager")

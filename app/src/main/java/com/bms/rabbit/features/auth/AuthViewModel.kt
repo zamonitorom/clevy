@@ -2,15 +2,13 @@ package com.bms.rabbit.features.auth
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
-import android.util.Log
 import com.bms.rabbit.BR
 import com.bms.rabbit.Router
 import com.bms.rabbit.entities.NewUser
-import com.bms.rabbit.entities.UserResponse
+import com.bms.rabbit.entities.User
 import com.bms.rabbit.features.LoaderViewModel
 import com.bms.rabbit.tools.Messenger
 import com.bms.rabbit.tools.StringContainer
-import com.crashlytics.android.Crashlytics
 import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -47,9 +45,9 @@ class AuthViewModel(private val router: Router, private val authRepository: Auth
     }
 
     init {
-//        mail.set("223sdf@mail.ru")
-//        name.set("akhmed228")
-//        code.set("qwe")
+        mail.set("qwe@mail.ru")
+        name.set("Ахмед")
+        code.set("qwe")
     }
 
     fun sendData() {
@@ -61,7 +59,8 @@ class AuthViewModel(private val router: Router, private val authRepository: Auth
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         loaderViewModel.finishLoading(true)
-                        router.openMain()
+                        it.needPayment = true
+                        resolveScreen(it)
                     }, {
                         loaderViewModel.finishLoading(false)
                         if (it.localizedMessage != null) {
@@ -74,6 +73,14 @@ class AuthViewModel(private val router: Router, private val authRepository: Auth
             messenger.showSystemMessage("Введите правильный адрес электронной почты")
         }
 
+    }
+
+    private fun resolveScreen(user: User) {
+        if (user.needPayment) {
+            router.openPayment()
+        } else {
+            router.openMain()
+        }
     }
 
 }

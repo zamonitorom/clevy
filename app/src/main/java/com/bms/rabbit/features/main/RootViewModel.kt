@@ -16,6 +16,7 @@ class RootViewModel(private val router: Router, private val authDbDataSource: Au
     fun resolveScreen() {
         if (authDbDataSource.registerFlag) {
             router.openMain()
+//            router.openPayment()
         } else {
             router.openAuth()
         }

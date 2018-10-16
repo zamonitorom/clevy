@@ -9,9 +9,14 @@ import com.bms.rabbit.tools.SoundPlayer
 
 // Created by Konstantin on 31.08.2018.
 
-class TaskWordContentViewModel(lessonRepository: LessonRepository, private val taskWordContent: TaskWordContent,
-                               isTest: Boolean, private val taskId: Int, private val attempt: Int,
-                               callback: Callback<BaseTaskContentViewModel>,private val soundPlayer: SoundPlayer) : BaseTaskContentViewModel(lessonRepository,isTest, taskId,attempt, callback) {
+class TaskWordContentViewModel(lessonRepository: LessonRepository,
+                               private val taskWordContent: TaskWordContent,
+                               isTest: Boolean,
+                               val showRussian:Boolean,
+                               private val taskId: Int,
+                               private val attempt: Int,
+                               callback: Callback<BaseTaskContentViewModel>,
+                               private val soundPlayer: SoundPlayer) : BaseTaskContentViewModel(lessonRepository,isTest, taskId,attempt, callback) {
 
 
     private val chooseCallback = Callback<TaskButtonViewModel> {

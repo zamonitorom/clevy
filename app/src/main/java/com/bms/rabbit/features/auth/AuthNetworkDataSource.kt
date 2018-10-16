@@ -4,6 +4,7 @@ package com.bms.rabbit.features.auth
 
 
 import com.bms.rabbit.entities.NewUser
+import com.bms.rabbit.entities.User
 import com.bms.rabbit.entities.UserResponse
 
 import java.util.HashMap
@@ -14,7 +15,7 @@ import retrofit2.Retrofit
 class AuthNetworkDataSource(retrofit: Retrofit) {
     private val authApi: AuthApi = retrofit.create(AuthApi::class.java)
 
-    fun createUser(newUser: NewUser): Single<UserResponse> {
+    fun createUser(newUser: NewUser): Single<User> {
         val fieldMap = HashMap<String, String>()
         fieldMap["name"] = newUser.name
         fieldMap["email"] = newUser.mail

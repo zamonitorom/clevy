@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit
 
 // Created by Konstantin on 29.08.2018.
 
-class TaskViewModel(private val router: Router, private val lessonRepository: LessonRepository, val id: Int,val type:Int) : BaseObservable() {
+class TaskViewModel(private val router: Router, private val lessonRepository: LessonRepository, val id: Int, val type: Int) : BaseObservable() {
     val loaderViewModel = LoaderViewModel({ loadTask() })
     val listViewModel = ListViewModel(ObservableArrayList<BaseTaskContentViewModel>(), R.layout.fragment_word_content, ItemId.value)
     @get:Bindable
@@ -32,6 +32,7 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
             notifyPropertyChanged(BR.title)
         }
     var attempt = 0
+    var showRussian = false
     @get:Bindable
     var position = 0
         set(value) {
@@ -73,18 +74,19 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
 
     private fun loadTask() {
         loaderViewModel.startLoading()
-        if(type ==0){
+        if (type == 0) {
             listViewModel.layoutId = R.layout.fragment_word_content
-            lessonRepository.getTask<TaskWordContent>(id,type)
+            lessonRepository.getTask<TaskWordContent>(id, type)
                     .delaySubscription(450, TimeUnit.MILLISECONDS)
                     .doOnSuccess {
                         title = it.name
                         attempt = it.lastAttempt + 1
+                        showRussian = it.showRussian
                     }
                     .map { return@map it.content }
                     .toObservable()
                     .flatMap { return@flatMap Observable.fromIterable(it) }
-                    .map { return@map TaskWordContentViewModel(lessonRepository, it, false, id, attempt, completeCallback,soundPlayer) }
+                    .map { return@map TaskWordContentViewModel(lessonRepository, it, false, showRussian, id, attempt, completeCallback, soundPlayer) }
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
@@ -95,9 +97,9 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
                         loaderViewModel.finishLoading(false)
                     }, {})
 
-        } else{
+        } else {
             listViewModel.layoutId = R.layout.fragment_sentence_content
-            lessonRepository.getTask<TaskSentenceContent>(id,type)
+            lessonRepository.getTask<TaskSentenceContent>(id, type)
                     .delaySubscription(450, TimeUnit.MILLISECONDS)
                     .doOnSuccess {
                         title = it.name
@@ -115,7 +117,7 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
                     }, {
                         Log.d("222", it.localizedMessage)
                         loaderViewModel.finishLoading(false)
-                    }, {test()})
+                    }, { test() })
         }
 
 
@@ -132,7 +134,7 @@ class TaskViewModel(private val router: Router, private val lessonRepository: Le
         repeat()
     }
 
-    fun stop(){
+    fun stop() {
         soundPlayer.stopPlaying()
     }
 

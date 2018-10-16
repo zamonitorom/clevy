@@ -26,7 +26,7 @@ class LessonRepository(retrofit: Retrofit) {
             return lessonApi.getTaskSentence(id) as Single<Task<T>>
         }
 
-        return Single.just(Task(0,0,"",0,ArrayList()))
+        return Single.just(Task(0,0,"",false,0,ArrayList()))
     }
 
     fun setResult(textAnswer: TestAnswer): Single<Any> {

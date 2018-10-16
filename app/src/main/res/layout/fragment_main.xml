@@ -29,9 +29,13 @@
             style="@style/primeText"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:gravity="center"
             android:background="@drawable/toolbar"
-            android:text="List of lessons" />
+            android:gravity="center"
+            android:text="List of lessons"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="57dp" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="0dp"
@@ -56,6 +60,22 @@
             app:viewModel="@{viewModel.loaderViewModel}">
 
         </include>
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/primeText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@{viewModel.name}"
+            android:gravity="end|center_vertical"
+            android:drawableEnd="@drawable/ic_person_light_green_a700_24dp"
+            android:drawablePadding="16dp"
+            android:background="@color/colorPrimaryDark"
+            android:paddingEnd="16dp"
+            app:onClick="@{viewModel::openProfile}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

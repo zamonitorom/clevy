@@ -3,20 +3,19 @@ package com.bms.rabbit
 // Created by Konstantin on 18.08.2018.
 
 
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentTransaction
+import android.util.Log
 import com.bms.rabbit.features.auth.AuthFragment
-import com.bms.rabbit.features.task.FinishFragment
 import com.bms.rabbit.features.lesson.LessonFragment
-import com.bms.rabbit.features.task.TaskFragment
 import com.bms.rabbit.features.main.MainActivity
 import com.bms.rabbit.features.main.MainFragment
-import android.support.v4.content.ContextCompat
-import android.view.WindowManager
-
+import com.bms.rabbit.features.profile.PaymentFragment
+import com.bms.rabbit.features.profile.ProfileFragment
+import com.bms.rabbit.features.task.FinishFragment
+import com.bms.rabbit.features.task.TaskFragment
 
 
 class RouterImpl : Router {
@@ -35,7 +34,7 @@ class RouterImpl : Router {
         this.activity = null
     }
 
-    private fun changeFragment(fragment: Fragment,bundle: Bundle = Bundle()) {
+    private fun addFragment(fragment: Fragment, bundle: Bundle = Bundle()) {
         if (activity is MainActivity) {
             fragment.arguments = bundle
             activity!!.supportFragmentManager.beginTransaction()
@@ -47,21 +46,25 @@ class RouterImpl : Router {
         }
     }
 
-    override fun openProfile() {
-
-    }
-
-    override fun openFinish(taskId:Int) {
-        val bundle = Bundle()
-        bundle.putInt(Companion.taskId, taskId)
-        val fragment = FinishFragment()
+    private fun replaceFragment(fragment: Fragment,bundle: Bundle = Bundle()){
         fragment.arguments = bundle
         if (activity is MainActivity) {
+            Log.d("Payment",fragment.javaClass.simpleName)
             activity!!.supportFragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.fragment_container, fragment)
                     .commit()
         }
+    }
+
+    override fun openProfile() {
+        addFragment(ProfileFragment())
+    }
+
+    override fun openFinish(taskId:Int) {
+        val bundle = Bundle()
+        bundle.putInt(Companion.taskId, taskId)
+        replaceFragment(FinishFragment(), bundle)
     }
 
     override fun continueLesson() {
@@ -71,7 +74,10 @@ class RouterImpl : Router {
                     .commit()
             activity!!.supportFragmentManager.popBackStack()
         }
+    }
 
+    override fun openPayment() {
+        addFragment(PaymentFragment())
     }
 
     override fun openAuth() {
@@ -89,23 +95,31 @@ class RouterImpl : Router {
             window.statusBarColor = ContextCompat.getColor(activity!!, R.color.transparent)
         }
 */
-        changeFragment(AuthFragment())
+        replaceFragment(AuthFragment())
     }
 
     override fun openMain() {
-        changeFragment(MainFragment())
+        addFragment(MainFragment())
     }
 
     override fun openLesson(id:Int) {
         val bundle = Bundle()
         bundle.putInt(lessonId, id)
-        changeFragment(LessonFragment(),bundle)
+        addFragment(LessonFragment(),bundle)
     }
 
     override fun openTask(id:Int,type:Int) {
         val bundle = Bundle()
         bundle.putInt(taskId, id)
         bundle.putInt(taskType, type)
-        changeFragment(TaskFragment(),bundle)
+        addFragment(TaskFragment(),bundle)
+    }
+
+    override fun clearStack() {
+        val fm = activity!!.supportFragmentManager
+        val count = fm.backStackEntryCount
+        for (i in 0 until count) {
+            fm.popBackStack()
+        }
     }
 }
