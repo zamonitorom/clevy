@@ -64,16 +64,13 @@ class PaymentViewModel(private val paymentService: PaymentService,
         paymentService.purchaseUpdate()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-//                .onErrorReturn({})
                 .subscribe({ purchase ->
-                    Log.d("Payment", purchase.sku)
                     user.needPayment = false
                     authDbDataSource.updateUser(user)
                     state = 1
                 }, {
                     messenger.showSystemMessage("Не удалось обработаь покупку. Попробуйте позднее")
                     state = 2
-
                     Crashlytics.logException(it)
                 })
     }

@@ -15,4 +15,8 @@ class AuthRepositoryImpl(private val authDbDataSource: AuthDbDataSource, private
         return authNetworkDataSource.createUser(newUser)
                 .doOnSuccess { authDbDataSource.saveUser(it) }
     }
+
+    override fun hasPurchased(): Boolean {
+        return authDbDataSource.hasPurchased()
+    }
 }

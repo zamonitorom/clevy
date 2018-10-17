@@ -79,7 +79,7 @@ public class AuthDbDataSource {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(APP_PREFERENCES_USER, new Gson().toJson(user));
         editor.putBoolean(APP_PREFERENCES_REGISTER, true);
-        editor.putBoolean(APP_PURCHASED, user.getNeedPayment());
+        editor.putBoolean(APP_PURCHASED, false);
         editor.apply();
         authSubject.onNext(true);
     }
@@ -108,6 +108,9 @@ public class AuthDbDataSource {
 
     public Boolean hasPurchased() {
         SharedPreferences sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        return sharedPreferences.contains(APP_PURCHASED);
+        if (sharedPreferences.contains(APP_PURCHASED)) {
+            return sharedPreferences.getBoolean(APP_PURCHASED, false);
+        } else return false;
+
     }
 }

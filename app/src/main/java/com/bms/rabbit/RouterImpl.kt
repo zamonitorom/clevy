@@ -40,7 +40,6 @@ class RouterImpl : Router {
             activity!!.supportFragmentManager.beginTransaction()
                     .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_right,R.anim.slide_in_left, R.anim.slide_in_right)
                     .replace(R.id.fragment_container, fragment)
-//                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .addToBackStack(null)
                     .commit()
         }
@@ -49,7 +48,6 @@ class RouterImpl : Router {
     private fun replaceFragment(fragment: Fragment,bundle: Bundle = Bundle()){
         fragment.arguments = bundle
         if (activity is MainActivity) {
-            Log.d("Payment",fragment.javaClass.simpleName)
             activity!!.supportFragmentManager.beginTransaction()
                     .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                     .replace(R.id.fragment_container, fragment)

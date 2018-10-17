@@ -30,7 +30,6 @@ class PaymentFragment : Fragment() {
         val messenger = (activity!!.applicationContext as RabbitApp).baseComponent.messenger
         viewModel = PaymentViewModel(paymentService, router, authDbDataSource,messenger)
         binding.viewModel = viewModel
-//        paymentService.requestSubs()
     }
 
     override fun onResume() {

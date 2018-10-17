@@ -11,4 +11,5 @@ import io.reactivex.Single
 
 interface AuthRepository {
     fun createUser(newUser: NewUser): Single<User>
+    fun hasPurchased():Boolean
 }

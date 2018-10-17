@@ -45,9 +45,9 @@ class AuthViewModel(private val router: Router, private val authRepository: Auth
     }
 
     init {
-        mail.set("qwe@mail.ru")
-        name.set("Ахмед")
-        code.set("qwe")
+//        mail.set("qwe@mail.ru")
+//        name.set("Ахмед")
+//        code.set("qwe")
     }
 
     fun sendData() {
@@ -59,7 +59,6 @@ class AuthViewModel(private val router: Router, private val authRepository: Auth
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         loaderViewModel.finishLoading(true)
-                        it.needPayment = true
                         resolveScreen(it)
                     }, {
                         loaderViewModel.finishLoading(false)
@@ -77,7 +76,11 @@ class AuthViewModel(private val router: Router, private val authRepository: Auth
 
     private fun resolveScreen(user: User) {
         if (user.needPayment) {
-            router.openPayment()
+            if (!authRepository.hasPurchased()) {
+                router.openPayment()
+            } else {
+                router.openMain()
+            }
         } else {
             router.openMain()
         }
