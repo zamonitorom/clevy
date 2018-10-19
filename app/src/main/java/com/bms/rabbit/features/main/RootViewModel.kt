@@ -1,32 +1,67 @@
 package com.bms.rabbit.features.main
 
 import android.databinding.BaseObservable
+import android.databinding.Bindable
+import com.bms.rabbit.BR
 import com.bms.rabbit.Router
 import com.bms.rabbit.features.auth.AuthDbDataSource
+import com.bms.rabbit.features.profile.PaymentService
+import com.bms.rabbit.tools.Messenger
+import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 // Created by Konstantin on 29.08.2018.
 
-class RootViewModel(private val router: Router, private val authDbDataSource: AuthDbDataSource) : BaseObservable() {
+class RootViewModel(private val router: Router,
+                    private val authDbDataSource: AuthDbDataSource,
+                    private val paymentService: PaymentService,
+                    private val messenger: Messenger) : BaseObservable() {
 
     init {
 
     }
 
+    @get:Bindable
+    var progress: Boolean = false
+        private set(progress) {
+            field = progress
+            notifyPropertyChanged(BR.progress)
+        }
+
     fun resolveScreen() {
+        var sku = ""
+        progress = true
         if (authDbDataSource.registerFlag) {
-            authDbDataSource.user
+            paymentService.setupConnection()
+                    .flatMap { return@flatMap if (it) authDbDataSource.user else Single.error(Throwable("notConnected")) }
+                    .flatMap {
+                        sku = it.sku
+                        return@flatMap  Single.just(it.needPayment)
+                      }
+                    .flatMap { return@flatMap if (it) paymentService.checkPurchase(sku) else Single.just(true) }
                     .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
-                        if (it.needPayment && !authDbDataSource.hasPurchased()) {
-                            router.openPayment()
-                        } else {
+                        if (it) {
                             router.openMain()
+                        } else {
+                            router.openPayment()
                         }
-                    }, {})
+                        progress = false
+                    }, {
+                        progress = false
+                        if (it.message!!.contains("notConnected")) {
+                            messenger.showSystemMessage("Не удалось загрузить данные! Проверьте подключение к интернету!")
+                        }
+                        if (it.message!!.contains("Not Found")) {
+                            router.openPayment()
+                        }
+                    })
         } else {
             router.openAuth()
         }
 
     }
+
 }

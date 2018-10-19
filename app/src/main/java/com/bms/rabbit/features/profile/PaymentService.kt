@@ -10,6 +10,8 @@ import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.subjects.PublishSubject
+import com.android.billingclient.api.BillingClient.SkuType
+import com.android.billingclient.api.Purchase.PurchasesResult
 
 
 /**
@@ -38,25 +40,25 @@ USER_CANCELED — возвращается, когда пользователь 
 
 class PaymentService(private val activity: Activity) {
     private val monthly = "com.bms.rabbit.subscribe.monthly"
-    private val subject : PublishSubject<Purchase> = PublishSubject.create()
+    private val subject: PublishSubject<Purchase> = PublishSubject.create()
     private val purchasesUpdatedListener = PurchasesUpdatedListener { responseCode, purchases ->
         //ответ от покупки
         //{"orderId":"GPA.3354-7626-0483-74646","packageName":"com.bms.rabbit","productId":"com.bms.rabbit.subscribe.monthly","purchaseTime":1539715225041,"purchaseState":0,"purchaseToken":"ebpbbcbkckolncbkjomlnmhd.AO-J1OzytJ83vbHDl62LAA1ca3-q01E0vGHfX_5fsWsis5DhbbKiRjTf46q0mc7xw6v69xUPCDvHJbaocB1gDkglEh4DArp0vvhBUA0Uenn4H05egP1uykUWyCwebBfXgLXUOjvsAOrx","autoRenewing":true}
         if (responseCode == BillingResponse.OK && purchases != null) {
             for (purchase in purchases) {
                 subject.onNext(purchase)
-                Log.d("Payment",purchase.sku)
+//                Log.d("Payment", purchase.sku)
 //                handlePurchase(purchase)
             }
         } else if (responseCode == BillingResponse.USER_CANCELED) {
-            if(subject.hasObservers()) {
-                Log.d("Payment","Operation failed")
+            if (subject.hasObservers()) {
+//                Log.d("Payment", "Operation failed")
                 subject.onError(Throwable("Operation failed"))
             }
             // Handle an error caused by a user cancelling the purchase flow.
         } else {
-            if(subject.hasObservers()) {
-                Log.d("Payment","Operation failed")
+            if (subject.hasObservers()) {
+//                Log.d("Payment", "Operation failed")
                 subject.onError(Throwable("Operation failed"))
             }
             // Handle any other error codes.
@@ -76,7 +78,7 @@ class PaymentService(private val activity: Activity) {
 //        initBilling()
     }
 
-    fun setupConnection():Single<Boolean> {
+    fun setupConnection(): Single<Boolean> {
         return Single.create { emitter ->
             billingClient.startConnection(object : BillingClientStateListener {
                 override fun onBillingSetupFinished(responseCode: Int) {
@@ -113,5 +115,24 @@ class PaymentService(private val activity: Activity) {
         billingClient.launchBillingFlow(activity, mParams)
     }
 
-    fun purchaseUpdate():Observable<Purchase> = subject
+    fun checkPurchase(sku: String): Single<Boolean> {
+        return Single.create { emitter ->
+            billingClient.queryPurchaseHistoryAsync(SkuType.SUBS) { responseCode, purchasesList ->
+                if (responseCode == BillingResponse.OK && purchasesList != null) {
+                    for (purchase in purchasesList) {
+                        if (purchase.sku == sku) {
+                            emitter.onSuccess(true)
+                        }
+                    }
+
+                }
+//                emitter.onError(Throwable("Not Found"))
+                emitter.onSuccess(false)
+            }
+
+//            billingClient.queryPurchases()
+        }
+    }
+
+    fun purchaseUpdate(): Observable<Purchase> = subject
 }

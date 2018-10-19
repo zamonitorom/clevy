@@ -65,7 +65,7 @@ class PaymentViewModel(private val paymentService: PaymentService,
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ purchase ->
-                    user.needPayment = false
+                    user.sku = purchase.sku
                     authDbDataSource.updateUser(user)
                     state = 1
                 }, {

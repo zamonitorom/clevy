@@ -9,13 +9,17 @@ import com.bms.rabbit.R
 import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.Router
 import com.bms.rabbit.databinding.ActivityMainBinding
+import com.bms.rabbit.features.profile.PaymentService
 import com.bms.rabbit.features.task.FinishFragment
 
 
 class MainActivity : AppCompatActivity() {
     private val activityMainBinding: ActivityMainBinding by lazy { DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main) }
     private val rootViewModel: RootViewModel by lazy {
-        RootViewModel((applicationContext as RabbitApp).baseComponent.router, (applicationContext as RabbitApp).baseComponent.authDbDataSource)
+        RootViewModel((applicationContext as RabbitApp).baseComponent.router,
+                (applicationContext as RabbitApp).baseComponent.authDbDataSource,
+                PaymentService(this),
+                (applicationContext as RabbitApp).baseComponent.messenger)
     }
     private lateinit var router: Router
 
@@ -24,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         router = (applicationContext as RabbitApp).baseComponent.router
         activityMainBinding.fragmentContainer.alpha = 1f
         router.setActivity(this)
+        activityMainBinding.viewModel = rootViewModel
         rootViewModel.resolveScreen()
     }
 

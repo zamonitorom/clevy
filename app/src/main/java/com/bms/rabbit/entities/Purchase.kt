@@ -11,10 +11,10 @@ import com.google.gson.annotations.SerializedName
 // "subscriptionPeriod":"P1M",
 // "title":"Подписка на месяц (LearnRabbit)",
 // "description":"Используйте приложения для запоминания слов!"}
-data class InAppSubscription(@SerializedName("productId") val id: String,
+data class InAppSubscription(val id: String,
                              val type: String,
                              val price: String,
-                             @SerializedName("productId") val currency: String,
+                             val currency: String,
                              val title: String,
                              val description: String
 )

@@ -14,6 +14,7 @@ data class User(val name: String,
                 @SerializedName("email") val mail: String,
                 @SerializedName("group_code") val code: String,
                 val token: String = "",
-                @SerializedName("is_need_to_pay") var needPayment: Boolean = false)
+                @SerializedName("is_need_to_pay") var needPayment: Boolean = false,
+                var sku: String = "")
 
 data class UserResponse(@SerializedName("token") val token: String = "")
