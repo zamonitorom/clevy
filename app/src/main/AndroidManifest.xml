@@ -57,12 +57,12 @@
             <!--android:theme="@style/AppTheme.NoActionBar" />-->
         <!--<activity android:name="com.bms.rabbit.bullshit.ShowCaseActivity"/>-->
 
-        <!--<service android:name="com.bms.rabbit.bullshit.FireBaseService"-->
-            <!--android:permission="">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="com.google.firebase.MESSAGING_EVENT"/>-->
-            <!--</intent-filter>-->
-        <!--</service>-->
+        <service android:name="com.bms.rabbit.features.services.PushService"
+            android:permission="">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="io.fabric.ApiKey"

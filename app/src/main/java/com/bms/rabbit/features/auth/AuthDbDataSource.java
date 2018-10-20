@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.functions.Consumer;
 import io.reactivex.subjects.PublishSubject;
 
 public class AuthDbDataSource {
@@ -106,11 +107,15 @@ public class AuthDbDataSource {
         editor.apply();
     }
 
-    public Boolean hasPurchased() {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(APP_PURCHASED)) {
-            return sharedPreferences.getBoolean(APP_PURCHASED, false);
-        } else return false;
-
-    }
+//    public Boolean hasPurchased() {
+////        boolean res = false;
+////        getUser().doOnSuccess(new Consumer<User>() {
+////            @Override
+////            public void accept(User user) throws Exception {
+////                if (!user.getSku().isEmpty()){
+////                    res = true;
+////                }
+////            }
+////        }).toObservable().blockingSubscribe();
+//    }
 }

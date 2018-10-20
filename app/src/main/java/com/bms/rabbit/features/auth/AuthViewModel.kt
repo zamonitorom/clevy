@@ -59,7 +59,7 @@ class AuthViewModel(private val router: Router, private val authRepository: Auth
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         loaderViewModel.finishLoading(true)
-                        resolveScreen(it)
+                        router.startSession()
                     }, {
                         loaderViewModel.finishLoading(false)
                         if (it.localizedMessage != null) {
@@ -74,16 +74,16 @@ class AuthViewModel(private val router: Router, private val authRepository: Auth
 
     }
 
-    private fun resolveScreen(user: User) {
-        if (user.needPayment) {
-            if (!authRepository.hasPurchased()) {
-                router.openPayment()
-            } else {
-                router.openMain()
-            }
-        } else {
-            router.openMain()
-        }
-    }
+//    private fun resolveScreen(user: User) {
+//        if (user.needPayment) {
+////            if (!authRepository.hasPurchased()) {
+//                router.openPayment()
+////            } else {
+////                router.openMain()
+////            }
+//        } else {
+//            router.openMain()
+//        }
+//    }
 
 }

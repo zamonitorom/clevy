@@ -24,6 +24,7 @@ class RouterImpl : Router {
         const val taskId = "taskId"
         const val taskType = "taskType"
     }
+
     private var activity: FragmentActivity? = null
 
     override fun setActivity(activity: FragmentActivity) {
@@ -38,14 +39,14 @@ class RouterImpl : Router {
         if (activity is MainActivity) {
             fragment.arguments = bundle
             activity!!.supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_right,R.anim.slide_in_left, R.anim.slide_in_right)
+                    .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_in_right, R.anim.slide_in_left, R.anim.slide_in_right)
                     .replace(R.id.fragment_container, fragment)
                     .addToBackStack(null)
                     .commit()
         }
     }
 
-    private fun replaceFragment(fragment: Fragment,bundle: Bundle = Bundle()){
+    private fun replaceFragment(fragment: Fragment, bundle: Bundle = Bundle()) {
         fragment.arguments = bundle
         if (activity is MainActivity) {
             activity!!.supportFragmentManager.beginTransaction()
@@ -59,7 +60,7 @@ class RouterImpl : Router {
         addFragment(ProfileFragment())
     }
 
-    override fun openFinish(taskId:Int) {
+    override fun openFinish(taskId: Int) {
         val bundle = Bundle()
         bundle.putInt(Companion.taskId, taskId)
         replaceFragment(FinishFragment(), bundle)
@@ -100,17 +101,17 @@ class RouterImpl : Router {
         addFragment(MainFragment())
     }
 
-    override fun openLesson(id:Int) {
+    override fun openLesson(id: Int) {
         val bundle = Bundle()
         bundle.putInt(lessonId, id)
-        addFragment(LessonFragment(),bundle)
+        addFragment(LessonFragment(), bundle)
     }
 
-    override fun openTask(id:Int,type:Int) {
+    override fun openTask(id: Int, type: Int) {
         val bundle = Bundle()
         bundle.putInt(taskId, id)
         bundle.putInt(taskType, type)
-        addFragment(TaskFragment(),bundle)
+        addFragment(TaskFragment(), bundle)
     }
 
     override fun clearStack() {
@@ -118,6 +119,12 @@ class RouterImpl : Router {
         val count = fm.backStackEntryCount
         for (i in 0 until count) {
             fm.popBackStack()
+        }
+    }
+
+    override fun startSession() {
+        if (activity!! is MainActivity) {
+            (activity!! as MainActivity).startSession()
         }
     }
 }

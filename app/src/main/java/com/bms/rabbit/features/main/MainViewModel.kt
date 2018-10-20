@@ -35,13 +35,16 @@ class MainViewModel(private val router: Router,
     fun loadLessons() {
         loaderViewModel.startLoading()
         lessonRepository.getLessons()
+                .doOnSuccess {
+                    //handle empty list
+                    loaderViewModel.finishLoading(true)
+                }
                 .toObservable()
                 .flatMap { return@flatMap Observable.fromIterable(it) }
                 .map { return@map LessonItemViewModel(router, it) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    loaderViewModel.finishLoading(true)
                     items.add(it)
                 }, {
                     loaderViewModel.finishLoading(false)

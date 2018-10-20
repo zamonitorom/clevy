@@ -29,6 +29,11 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.fragmentContainer.alpha = 1f
         router.setActivity(this)
         activityMainBinding.viewModel = rootViewModel
+        startSession()
+    }
+
+    fun startSession(){
+        router.setActivity(this)
         rootViewModel.resolveScreen()
     }
 

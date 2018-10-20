@@ -36,10 +36,13 @@ class RootViewModel(private val router: Router,
             paymentService.setupConnection()
                     .flatMap { return@flatMap if (it) authDbDataSource.user else Single.error(Throwable("notConnected")) }
                     .flatMap {
-                        sku = it.sku
-                        return@flatMap  Single.just(it.needPayment)
-                      }
-                    .flatMap { return@flatMap if (it) paymentService.checkPurchase(sku) else Single.just(true) }
+                        if (it.sku != null) sku = it.sku
+                        return@flatMap Single.just(it.needPayment)
+                    }
+                    .flatMap {
+                        if (sku.isEmpty()) return@flatMap Single.just(false)
+                        return@flatMap if (it) paymentService.checkPurchase(sku) else Single.just(true)
+                    }
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({

@@ -17,4 +17,5 @@ interface Router {
     fun setActivity(activity: FragmentActivity)
     fun releaseActivity()
     fun clearStack()
+    fun startSession()
 }

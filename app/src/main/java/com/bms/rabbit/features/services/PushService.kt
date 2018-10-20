@@ -1,12 +1,17 @@
-package com.bms.rabbit.bullshit;
+package com.bms.rabbit.features.services
 
-//public class FireBaseService extends FirebaseMessagingService {
-//
-//    public void onMessageReceived(RemoteMessage remoteMessage) {
+import android.content.Intent
+import com.google.firebase.messaging.FirebaseMessagingService
+import com.google.firebase.messaging.RemoteMessage
+
+// Created by Konstantin on 20.10.2018.
+
+class PushService():FirebaseMessagingService(){
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
 //        sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("body"));
-//    }
-//
-//    private void sendNotification(String messageTitle, String messageBody) {
+    }
+
+//    fun sendNotification(String messageTitle, String messageBody) {
 //        Intent intent = new Intent(this, EducationActivity.class);
 //        intent.putExtra("title",  messageTitle);
 //        intent.putExtra("body",  messageBody);
@@ -14,7 +19,7 @@ package com.bms.rabbit.bullshit;
 //        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //
 //        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,
-//                PendingIntent.FLAG_ONE_SHOT);
+//        PendingIntent.FLAG_ONE_SHOT);
 //
 //        Uri soundLink = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.income_message);
 //
@@ -39,5 +44,4 @@ package com.bms.rabbit.bullshit;
 //            Log.println(Log.ERROR, "null", "can not push notify");
 //        }
 //    }
-//
-//}
+}
