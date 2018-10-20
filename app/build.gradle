@@ -14,8 +14,8 @@ android {
         applicationId "com.bms.rabbit"
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
-        versionCode 8
-        versionName "1.1.1"
+        versionCode 9
+        versionName "1.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
 

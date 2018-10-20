@@ -65,6 +65,10 @@
         </service>
 
         <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/default_notification_channel_id" />
+
+        <meta-data
             android:name="io.fabric.ApiKey"
             android:value="728acbf49674fab4746e448408eb35540a836326"
             />

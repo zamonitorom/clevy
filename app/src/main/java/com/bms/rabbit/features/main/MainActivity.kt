@@ -9,6 +9,7 @@ import com.bms.rabbit.R
 import com.bms.rabbit.RabbitApp
 import com.bms.rabbit.Router
 import com.bms.rabbit.databinding.ActivityMainBinding
+import com.bms.rabbit.entities.ScreenData
 import com.bms.rabbit.features.profile.PaymentService
 import com.bms.rabbit.features.task.FinishFragment
 
@@ -29,12 +30,22 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.fragmentContainer.alpha = 1f
         router.setActivity(this)
         activityMainBinding.viewModel = rootViewModel
-        startSession()
+
+        if (intent != null) {
+            if (intent.hasExtra("screen")) {
+                val screenData = ScreenData(intent.getStringExtra("screen"), intent.getIntExtra("id",-1))
+                startSession(screenData)
+            } else {
+                startSession()
+            }
+        } else {
+            startSession()
+        }
     }
 
-    fun startSession(){
+    fun startSession(screenData: ScreenData = ScreenData("", 0)) {
         router.setActivity(this)
-        rootViewModel.resolveScreen()
+        rootViewModel.resolveScreen(screenData)
     }
 
     override fun onResume() {

@@ -2,11 +2,14 @@ package com.bms.rabbit.features.main
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import android.util.Log
 import com.bms.rabbit.BR
 import com.bms.rabbit.Router
+import com.bms.rabbit.entities.ScreenData
 import com.bms.rabbit.features.auth.AuthDbDataSource
 import com.bms.rabbit.features.profile.PaymentService
 import com.bms.rabbit.tools.Messenger
+import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -29,7 +32,7 @@ class RootViewModel(private val router: Router,
             notifyPropertyChanged(BR.progress)
         }
 
-    fun resolveScreen() {
+    fun resolveScreen(screenData: ScreenData = ScreenData("",0)) {
         var sku = ""
         progress = true
         if (authDbDataSource.registerFlag) {
@@ -47,7 +50,11 @@ class RootViewModel(private val router: Router,
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
                         if (it) {
-                            router.openMain()
+                            if (screenData.screenKey.isEmpty()) {
+                                router.openMain()
+                            } else if (screenData.screenKey == "lesson") {
+                                router.openLesson(screenData.id)
+                            }
                         } else {
                             router.openPayment()
                         }
@@ -64,7 +71,7 @@ class RootViewModel(private val router: Router,
         } else {
             router.openAuth()
         }
-
+//        Log.d("onMessageReceived",FirebaseInstanceId.getInstance().token)
     }
 
 }
